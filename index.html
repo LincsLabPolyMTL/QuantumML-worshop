@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quantum ML Workshop 2026 — Polytechnique Montréal</title>
+  <meta name="description" content="One-day workshop on Advances in Quantum ML Computing for Network Anomaly Detection and Time-Series Forecasting. April 17, 2026 at Polytechnique Montréal." />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    /* ── Hero ───────────────────────────────── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: calc(var(--nav-h) + 3rem) 2.5rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% -10%, rgba(108,99,255,0.22) 0%, transparent 65%),
+        radial-gradient(ellipse 50% 40% at 80% 80%, rgba(0,212,255,0.08) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(108,99,255,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(108,99,255,0.04) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 20%, transparent 80%);
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      max-width: 800px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.4rem 1rem;
+      border-radius: 999px;
+      background: rgba(108,99,255,0.1);
+      border: 1px solid rgba(108,99,255,0.25);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--purple-light);
+      margin-bottom: 1.75rem;
+    }
+
+    .hero-badge-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--cyan);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.85); }
+    }
+
+    .hero h1 {
+      font-size: clamp(2rem, 5.5vw, 3.75rem);
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+      font-weight: 700;
+    }
+
+    .hero-meta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.95rem;
+      color: var(--text-2);
+    }
+
+    .hero-meta-item .icon { font-size: 1rem; }
+
+    .hero-meta-sep {
+      width: 4px; height: 4px;
+      border-radius: 50%;
+      background: var(--text-muted);
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 3.5rem;
+    }
+
+    /* Countdown */
+    .countdown-wrap {
+      margin-top: 1rem;
+    }
+
+    .countdown-label-text {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+    }
+
+    #countdown {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .countdown-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 56px;
+    }
+
+    .countdown-num {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2rem;
+      font-weight: 700;
+      line-height: 1;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .countdown-label {
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      margin-top: 0.3rem;
+    }
+
+    .countdown-sep {
+      font-size: 1.5rem;
+      color: var(--text-muted);
+      margin-bottom: 1.2rem;
+      font-weight: 300;
+    }
+
+    /* ── Section alternates ─────────────────── */
+    .section-alt {
+      background: var(--bg-2);
+    }
+
+    /* ── Mini schedule preview ─────────────── */
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      max-width: 600px;
+    }
+
+    .timeline-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1rem 0;
+      border-left: 2px solid var(--border-light);
+      padding-left: 1.5rem;
+      position: relative;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -5px;
+      top: 1.3rem;
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--purple);
+    }
+
+    .timeline-item.highlight::before { background: var(--cyan); }
+
+    .timeline-time {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-2);
+      font-family: 'Space Grotesk', sans-serif;
+      min-width: 60px;
+      padding-top: 0.1rem;
+    }
+
+    .timeline-content h4 {
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 0.15rem;
+    }
+
+    .timeline-content p {
+      font-size: 0.8rem;
+      color: var(--text-2);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav" id="nav">
+    <div class="nav-logo">
+      <div class="nav-logo-icon">Q</div>
+      <div class="nav-logo-text">
+        Quantum ML Workshop
+        <span>April 17, 2026</span>
+      </div>
+    </div>
+
+    <button class="nav-hamburger" id="navHamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="program.html">Program</a></li>
+      <li><a href="speakers.html">Speakers</a></li>
+      <li><a href="registration.html" class="nav-cta">Register</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="hero-badge-dot"></span>
+        Workshop · April 17, 2026
+      </div>
+
+      <h1>
+        Advances in <span class="gradient-text">Quantum ML</span><br />
+        for Network Anomaly Detection<br />
+        &amp; Time-Series Forecasting
+      </h1>
+
+      <div class="hero-meta">
+        <div class="hero-meta-item">
+          <span class="icon">📅</span>
+          April 17, 2026 — 10:00 AM
+        </div>
+        <div class="hero-meta-sep"></div>
+        <div class="hero-meta-item">
+          <span class="icon">📍</span>
+          Polytechnique Montréal
+        </div>
+        <div class="hero-meta-sep"></div>
+        <div class="hero-meta-item">
+          <span class="icon">🕐</span>
+          Full-Day Event
+        </div>
+      </div>
+
+      <div class="hero-actions">
+        <a href="program.html" class="btn btn-primary">View Program</a>
+        <a href="registration.html" class="btn btn-outline">Register Now</a>
+      </div>
+
+      <div class="countdown-wrap">
+        <p class="countdown-label-text">Event starts in</p>
+        <div id="countdown"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section class="section">
+    <div class="section-inner">
+      <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;">
+        <div>
+          <span class="section-label">About the Workshop</span>
+          <h2 class="section-title">Where Quantum Computing Meets Machine Learning</h2>
+          <p style="color:var(--text-2); margin-bottom:1.25rem;">
+            This one-day workshop brings together researchers and practitioners exploring the intersection
+            of quantum computing and machine learning — with a focus on two high-impact application domains:
+            network anomaly detection and time-series forecasting.
+          </p>
+          <p style="color:var(--text-2); margin-bottom:2rem;">
+            Attendees will hear cutting-edge results on quantum reservoir computing, quantum recurrent networks,
+            gate-based models, and AI-assisted circuit optimization — all applied to real-world data challenges.
+          </p>
+          <a href="speakers.html" class="btn btn-outline">Meet the Speakers</a>
+        </div>
+
+        <div class="stats-bar" style="margin:0;">
+          <div class="stat-item">
+            <span class="countdown-num" style="font-size:2.25rem;">6</span>
+            <span class="stat-label">Presentations</span>
+          </div>
+          <div class="stat-item">
+            <span class="countdown-num" style="font-size:2.25rem;">2</span>
+            <span class="stat-label">Parallel Tracks</span>
+          </div>
+          <div class="stat-item">
+            <span class="countdown-num" style="font-size:2.25rem;">1</span>
+            <span class="stat-label">Full Day</span>
+          </div>
+          <div class="stat-item">
+            <span class="countdown-num" style="font-size:2.25rem;">∞</span>
+            <span class="stat-label">Networking</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- Topics -->
+  <section class="section section-alt">
+    <div class="section-inner">
+      <div class="section-header">
+        <span class="section-label">Key Topics</span>
+        <h2 class="section-title">Research Areas</h2>
+        <p class="section-subtitle">
+          The workshop covers a broad spectrum of quantum ML techniques applied to networking and forecasting.
+        </p>
+      </div>
+
+      <div class="topics-grid">
+        <div class="topic-card">
+          <div class="topic-icon">⚛️</div>
+          <h3>Quantum Reservoir Computing</h3>
+          <p>Gate-based and dynamical reservoir models for classification and time-series learning tasks.</p>
+        </div>
+        <div class="topic-card">
+          <div class="topic-icon">🔁</div>
+          <h3>Quantum Recurrent Networks</h3>
+          <p>Quantum analogues of recurrent gated architectures (LSTM/GRU) for sequential data.</p>
+        </div>
+        <div class="topic-card">
+          <div class="topic-icon">🛡️</div>
+          <h3>Network Anomaly Detection</h3>
+          <p>Applying quantum ML to identify anomalies and intrusions in real-time network traffic.</p>
+        </div>
+        <div class="topic-card">
+          <div class="topic-icon">📈</div>
+          <h3>Time-Series Forecasting</h3>
+          <p>Quantum kernel and circuit-based methods for multi-step prediction on temporal data.</p>
+        </div>
+        <div class="topic-card">
+          <div class="topic-icon">✂️</div>
+          <h3>AI-based Circuit Cutting</h3>
+          <p>Leveraging AI to partition large quantum circuits for execution on near-term hardware.</p>
+        </div>
+        <div class="topic-card">
+          <div class="topic-icon">🌀</div>
+          <h3>Generative Quantum Models</h3>
+          <p>Quantum-enhanced latent generative models for anomaly synthesis and data augmentation.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- Schedule Preview -->
+  <section class="section">
+    <div class="section-inner">
+      <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start;">
+        <div>
+          <span class="section-label">Day at a Glance</span>
+          <h2 class="section-title">April 17 Schedule</h2>
+          <p style="color:var(--text-2); margin-bottom:2rem;">
+            A full day of talks across two parallel tracks, with ample time for networking and discussion.
+          </p>
+          <a href="program.html" class="btn btn-primary">Full Program →</a>
+        </div>
+
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-time">10:00</div>
+            <div class="timeline-content">
+              <h4>Registration &amp; Networking</h4>
+              <p>Welcome coffee, meet attendees</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-time">10:30</div>
+            <div class="timeline-content">
+              <h4>Opening Ceremony</h4>
+              <p>Welcome remarks &amp; keynote introduction</p>
+            </div>
+          </div>
+          <div class="timeline-item highlight">
+            <div class="timeline-time">11:00</div>
+            <div class="timeline-content">
+              <h4>Morning Sessions (2 tracks)</h4>
+              <p>Parallel research presentations</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-time">12:00</div>
+            <div class="timeline-content">
+              <h4>Lunch &amp; Networking</h4>
+              <p>Catered lunch, informal discussions</p>
+            </div>
+          </div>
+          <div class="timeline-item highlight">
+            <div class="timeline-time">13:00</div>
+            <div class="timeline-content">
+              <h4>Afternoon Sessions (2 tracks)</h4>
+              <p>Parallel research presentations</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-time">14:30</div>
+            <div class="timeline-content">
+              <h4>Coffee Break</h4>
+              <p>Networking &amp; poster discussions</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-time">15:00</div>
+            <div class="timeline-content">
+              <h4>Closing Talks &amp; Discussion</h4>
+              <p>Final presentations, open Q&amp;A, closing remarks</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- Venue -->
+  <section class="section section-alt">
+    <div class="section-inner">
+      <div class="section-header">
+        <span class="section-label">Location</span>
+        <h2 class="section-title">Polytechnique Montréal</h2>
+      </div>
+
+      <div class="venue-grid">
+        <div class="venue-details">
+          <div class="venue-detail-item">
+            <div class="venue-detail-icon">📍</div>
+            <div>
+              <h4>Address</h4>
+              <p>2900 Édouard-Montpetit Blvd<br />Montréal, QC H3T 1J4, Canada</p>
+            </div>
+          </div>
+          <div class="venue-detail-item">
+            <div class="venue-detail-icon">📅</div>
+            <div>
+              <h4>Date &amp; Time</h4>
+              <p>April 17, 2026 · 10:00 AM – 4:30 PM</p>
+            </div>
+          </div>
+          <div class="venue-detail-item">
+            <div class="venue-detail-icon">🚇</div>
+            <div>
+              <h4>Transit</h4>
+              <p>Metro: Université-de-Montréal (Blue Line)<br />Bus: 51, 119, 365, 370</p>
+            </div>
+          </div>
+          <div class="venue-detail-item">
+            <div class="venue-detail-icon">🅿️</div>
+            <div>
+              <h4>Parking</h4>
+              <p>On-campus paid parking available.<br />Contact us for visitor parking passes.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="venue-map">
+          <iframe
+            src="https://www.openstreetmap.org/export/embed.html?bbox=-73.622%2C45.500%2C-73.608%2C45.508&layer=mapnik&marker=45.50464%2C-73.61458"
+            loading="lazy"
+            title="Polytechnique Montréal map"
+          ></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-logo gradient-text">Quantum ML Workshop 2026</div>
+      <ul class="footer-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="program.html">Program</a></li>
+        <li><a href="speakers.html">Speakers</a></li>
+        <li><a href="registration.html">Register</a></li>
+      </ul>
+      <p class="footer-copy">© 2026 · Polytechnique Montréal</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

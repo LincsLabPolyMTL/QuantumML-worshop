@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Program — Quantum ML Workshop 2026</title>
+  <meta name="description" content="Full program and schedule for the Quantum ML Workshop, April 17, 2026 at Polytechnique Montréal." />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    /* ── Sticky track header ────────────────── */
+    .program-section {
+      padding: 3rem 2.5rem 5rem;
+    }
+
+    .program-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    /* ── Session detail tags ────────────────── */
+    .session-detail {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 0.4rem;
+    }
+
+    /* ── Track column headers ───────────────── */
+    .track-col-headers {
+      display: grid;
+      grid-template-columns: 90px 1fr 1fr;
+      gap: 0.75rem;
+      margin-bottom: 0.5rem;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--border-light);
+      position: sticky;
+      top: var(--nav-h);
+      background: var(--bg);
+      z-index: 10;
+    }
+
+    .track-col-header {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+    }
+
+    .track-col-header .dot {
+      width: 8px; height: 8px;
+      border-radius: 2px;
+    }
+
+    .track-col-header.a { color: var(--purple-light); }
+    .track-col-header.a .dot { background: var(--purple); }
+    .track-col-header.b { color: var(--cyan); }
+    .track-col-header.b .dot { background: var(--cyan); }
+
+    /* ── Schedule spacing ───────────────────── */
+    .schedule-block {
+      margin-bottom: 0.5rem;
+    }
+
+    /* Group separator */
+    .schedule-group-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      padding: 1.5rem 0 0.5rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav" id="nav">
+    <div class="nav-logo">
+      <div class="nav-logo-icon">Q</div>
+      <div class="nav-logo-text">
+        Quantum ML Workshop
+        <span>April 17, 2026</span>
+      </div>
+    </div>
+
+    <button class="nav-hamburger" id="navHamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="program.html">Program</a></li>
+      <li><a href="speakers.html">Speakers</a></li>
+      <li><a href="registration.html" class="nav-cta">Register</a></li>
+    </ul>
+  </nav>
+
+  <!-- Page Hero -->
+  <div class="page-hero">
+    <span class="section-label">April 17, 2026</span>
+    <h1>Workshop <span class="gradient-text">Program</span></h1>
+    <p>Polytechnique Montréal · 10:00 AM – 4:30 PM</p>
+  </div>
+
+  <!-- Program Content -->
+  <section class="program-section">
+    <div class="program-inner">
+
+      <div class="notice">
+        <span class="notice-icon">ℹ️</span>
+        <span>The program is subject to change. Sessions, speakers, and times may be adjusted.
+        Check this page regularly for updates.</span>
+      </div>
+
+      <!-- Legend -->
+      <div class="schedule-legend">
+        <div class="legend-item">
+          <div class="legend-dot track-a"></div>
+          Track A
+        </div>
+        <div class="legend-item">
+          <div class="legend-dot track-b"></div>
+          Track B
+        </div>
+        <div class="legend-item">
+          <div class="legend-dot plenary"></div>
+          Plenary / Break
+        </div>
+      </div>
+
+      <!-- Sticky Track Column Headers -->
+      <div class="track-col-headers">
+        <div></div>
+        <div class="track-col-header a">
+          <span class="dot"></span> Track A
+        </div>
+        <div class="track-col-header b">
+          <span class="dot"></span> Track B
+        </div>
+      </div>
+
+      <!-- ── MORNING ──────────────────────────────── -->
+      <div class="schedule-group-label">Morning</div>
+
+      <!-- 10:00 — Networking -->
+      <div class="schedule-block">
+        <div class="schedule-row plenary">
+          <div class="schedule-time">10:00 AM</div>
+          <div class="session plenary-session">
+            <div class="session-title">Registration &amp; Networking</div>
+            <div class="session-detail">Welcome coffee · Meet fellow attendees · Informal discussions</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 10:30 — Opening + Benjamin Talk -->
+      <div class="schedule-block">
+        <div class="schedule-row">
+          <div class="schedule-time">10:30 AM</div>
+          <div class="session track-a">
+            <div class="session-track-label">Track A</div>
+            <div class="session-title">Opening Ceremony &amp; Welcome Remarks</div>
+            <div class="session-speaker">Organizers</div>
+          </div>
+          <div class="session track-b">
+            <div class="session-track-label">Track B</div>
+            <div class="session-title">Successive Data Injection for Quantum Models</div>
+            <div class="session-speaker"><strong>Benjamin</strong></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 11:00 — Benjamin+Wajdi // Wissal -->
+      <div class="schedule-block">
+        <div class="schedule-row">
+          <div class="schedule-time">11:00 AM</div>
+          <div class="session track-a">
+            <div class="session-track-label">Track A</div>
+            <div class="session-title">Enhanced + Successive Data Injection</div>
+            <div class="session-speaker"><strong>Benjamin &amp; Wajdi</strong></div>
+          </div>
+          <div class="session track-b">
+            <div class="session-track-label">Track B</div>
+            <div class="session-title">Gate-based Reservoir QRC</div>
+            <div class="session-speaker"><strong>Wissal</strong></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 11:30 — Wajdi // Melek -->
+      <div class="schedule-block">
+        <div class="schedule-row">
+          <div class="schedule-time">11:30 AM</div>
+          <div class="session track-a">
+            <div class="session-track-label">Track A</div>
+            <div class="session-title">Quantum Recurrent Gated Network</div>
+            <div class="session-speaker"><strong>Wajdi</strong></div>
+          </div>
+          <div class="session track-b">
+            <div class="session-track-label">Track B</div>
+            <div class="session-title">AI-based Circuit Cutting</div>
+            <div class="session-speaker"><strong>Melek</strong></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 12:00 — Lunch -->
+      <div class="schedule-block">
+        <div class="schedule-row plenary">
+          <div class="schedule-time">12:00 PM</div>
+          <div class="session break-session">
+            <div class="session-title">🍽️ Lunch &amp; Networking Break</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── AFTERNOON ─────────────────────────────── -->
+      <div class="schedule-group-label">Afternoon</div>
+
+      <!-- 13:00 — Alexis (plenary / same session both tracks) -->
+      <div class="schedule-block">
+        <div class="schedule-row plenary">
+          <div class="schedule-time">1:00 PM</div>
+          <div class="session track-a">
+            <div class="session-track-label">Plenary</div>
+            <div class="session-title">Latent GAN for Quantum Data Synthesis</div>
+            <div class="session-speaker"><strong>Alexis</strong></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 13:30 — Wissal // Abdullah QuaCK-TSF -->
+      <div class="schedule-block">
+        <div class="schedule-row">
+          <div class="schedule-time">1:30 PM</div>
+          <div class="session track-a">
+            <div class="session-track-label">Track A</div>
+            <div class="session-title">Gate-based Reservoir QRC</div>
+            <div class="session-speaker"><strong>Wissal</strong></div>
+          </div>
+          <div class="session track-b">
+            <div class="session-track-label">Track B</div>
+            <div class="session-title">QuaCK-TSF: Quantum Circuit Kernel for Time-Series Forecasting</div>
+            <div class="session-speaker"><strong>Abdullah</strong></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 14:00 — Abdullah QuaRK (plenary) -->
+      <div class="schedule-block">
+        <div class="schedule-row plenary">
+          <div class="schedule-time">2:00 PM</div>
+          <div class="session track-a">
+            <div class="session-track-label">Plenary</div>
+            <div class="session-title">QuaRK — Quantum Reservoir Kernel for Anomaly Detection</div>
+            <div class="session-speaker"><strong>Abdullah</strong></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 14:30 — Break -->
+      <div class="schedule-block">
+        <div class="schedule-row plenary">
+          <div class="schedule-time">2:30 PM</div>
+          <div class="session break-session">
+            <div class="session-title">☕ Coffee Break</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── CLOSING ─────────────────────────────── -->
+      <div class="schedule-group-label">Closing</div>
+
+      <!-- 15:00 — Abdullah QuaCK-TSF -->
+      <div class="schedule-block">
+        <div class="schedule-row plenary">
+          <div class="schedule-time">3:00 PM</div>
+          <div class="session track-b">
+            <div class="session-track-label">Track B</div>
+            <div class="session-title">QuaCK-TSF: Quantum Circuit Kernel for Time-Series Forecasting</div>
+            <div class="session-speaker"><strong>Abdullah</strong></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 15:30 — Melek online -->
+      <div class="schedule-block">
+        <div class="schedule-row plenary">
+          <div class="schedule-time">3:30 PM</div>
+          <div class="session track-b">
+            <div class="session-track-label">Track B</div>
+            <div class="session-title">AI-based Circuit Cutting</div>
+            <div class="session-speaker">
+              <strong>Melek</strong>
+              <span class="online-badge">🟢 Online</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 16:00 — Discussion + Closing -->
+      <div class="schedule-block">
+        <div class="schedule-row">
+          <div class="schedule-time">4:00 PM</div>
+          <div class="session track-a">
+            <div class="session-track-label">Track A</div>
+            <div class="session-title">Open Discussion &amp; Q&amp;A</div>
+            <div class="session-speaker">All Speakers</div>
+          </div>
+          <div class="session plenary-session">
+            <div class="session-title">Closing Remarks</div>
+            <div class="session-speaker">Organizers</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-logo gradient-text">Quantum ML Workshop 2026</div>
+      <ul class="footer-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="program.html">Program</a></li>
+        <li><a href="speakers.html">Speakers</a></li>
+        <li><a href="registration.html">Register</a></li>
+      </ul>
+      <p class="footer-copy">© 2026 · Polytechnique Montréal</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
