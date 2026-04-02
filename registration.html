@@ -207,18 +207,6 @@
       <!-- Main Forms -->
       <div>
 
-        <!-- Setup note -->
-        <div class="setup-box" id="setupNote">
-          <h3>🔧 Setup Required — Connect Google Sheets</h3>
-          <ol>
-            <li>Go to <strong>Google Sheets</strong> and create a spreadsheet called <em>Workshop Registrations</em>.</li>
-            <li>Open <strong>Extensions → Apps Script</strong> and paste the script from <code>google-apps-script.js</code>.</li>
-            <li>Click <strong>Deploy → New deployment</strong> → Web App → access: <em>Anyone</em>.</li>
-            <li>Copy the Web App URL and paste it into <code>js/main.js</code> where it says <code>YOUR_GOOGLE_APPS_SCRIPT_URL_HERE</code>.</li>
-            <li>Delete this box once connected.</li>
-          </ol>
-        </div>
-
         <!-- Tab bar -->
         <div class="tab-bar">
           <button class="tab-btn active" onclick="switchTab('registration', this)">Registration</button>
@@ -442,7 +430,7 @@
 
       // Reads the same URL configured in main.js
       // We duplicate the logic here for the second form
-      const GOOGLE_SCRIPT_URL = 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE';
+      const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxjnoO7r4gHdgKUhv94aPHzsVlIMUbdl0q7-GJeMf0NtSoJNEWYL73_P-Aiy-NDIWWY/exec';
 
       form.addEventListener('submit', async (e) => {
         e.preventDefault();

@@ -45,12 +45,9 @@ function setup() {
       'Institution',
       'Department',
       'Role',
-      'Attendance Type',
-      'Participation',
       'Research Interests',
-      'Message',
     ]);
-    regSheet.getRange(1, 1, 1, 11).setFontWeight('bold').setBackground('#6c63ff').setFontColor('#ffffff');
+    regSheet.getRange(1, 1, 1, 8).setFontWeight('bold').setBackground('#6c63ff').setFontColor('#ffffff');
     regSheet.setFrozenRows(1);
   }
 
@@ -117,17 +114,14 @@ function doPost(e) {
     }
 
     const row = [
-      new Date().toISOString(),           // Timestamp
+      new Date().toISOString(),
       data.firstName   || '',
       data.lastName    || '',
       data.email       || '',
       data.institution || '',
       data.department  || '',
       data.role        || '',
-      data.attendanceType || '',
-      data.participation  || '',
       data.interests   || '',
-      data.message     || '',
     ];
 
     sheet.appendRow(row);
@@ -158,7 +152,6 @@ function doGet() {
 // ── Send confirmation email to registrant ─────────────────
 function sendConfirmationEmail(data) {
   const name = `${data.firstName || ''} ${data.lastName || ''}`.trim() || 'Participant';
-  const attendance = data.attendanceType === 'Online' ? 'online' : 'in-person';
 
   const subject = `Registration Confirmed — Quantum ML Workshop 2026`;
 
@@ -176,17 +169,13 @@ Date:     April 17, 2026
 Time:     10:00 AM – 4:30 PM (EDT)
 Location: Polytechnique Montréal
           2900 Édouard-Montpetit Blvd, Montréal, QC H3T 1J4
-Format:   Hybrid (you registered as ${attendance})
 
 ─────────────────────────────
 Your Registration
 ─────────────────────────────
-Name:         ${name}
-Email:        ${data.email}
-Institution:  ${data.institution || 'N/A'}
-Participation: ${data.participation || 'Attendee'}
-
-For questions, reply to this email or contact us at workshop@polymtl.ca.
+Name:        ${name}
+Email:       ${data.email}
+Institution: ${data.institution || 'N/A'}
 
 We look forward to seeing you on April 17!
 
