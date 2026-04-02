@@ -87,7 +87,7 @@
   // │  STEP 1: Replace this URL with your Google Apps Script  │
   // │  Web App URL after deploying (see README instructions). │
   // └─────────────────────────────────────────────────────────┘
-  const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx8F8Y7BNEQozVcKOgUnVNajUv9S_conT9Qm3Khm0-n3wG6ytq-WB397KkqFuI00Y1l/exec';
+  const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzkj_LCxUvz7QWN0bpsocoqwWABXIHDE6Xpq261-I3pVM4Q9d8WTR2bESSs016IO0fr/exec';
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
