@@ -107,16 +107,24 @@
 
     try {
       const url = GOOGLE_SCRIPT_URL + '?payload=' + encodeURIComponent(JSON.stringify(payload));
-      await fetch(url, { method: 'GET', mode: 'no-cors' });
+      await sendToSheet(url);
       showMessage('success', '✓ Registration received! We will be in touch shortly.');
       form.reset();
     } catch {
-      showMessage('error', 'Something went wrong. Please try emailing us directly.');
+      showMessage('error', 'Something went wrong. Please try again.');
     } finally {
       btn.disabled = false;
       btn.textContent = originalText;
     }
   });
+
+  function sendToSheet(url) {
+    return new Promise((resolve) => {
+      const img = new Image();
+      img.onload = img.onerror = () => resolve();
+      img.src = url;
+    });
+  }
 
   function showMessage(type, text) {
     msg.className = 'form-message ' + type;
