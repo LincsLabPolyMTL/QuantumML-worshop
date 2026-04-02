@@ -142,11 +142,53 @@ function doPost(e) {
   }
 }
 
-// ── Handle GET (health check) ──────────────────────────────
-function doGet() {
-  return ContentService
-    .createTextOutput(JSON.stringify({ status: 'ok', workshop: 'Quantum ML Workshop 2026' }))
-    .setMimeType(ContentService.MimeType.JSON);
+// ── Handle GET — main entry point from the website form ────
+function doGet(e) {
+  try {
+    if (!e || !e.parameter || !e.parameter.payload) {
+      return ContentService
+        .createTextOutput(JSON.stringify({ status: 'ok', workshop: 'Quantum ML Workshop 2026' }))
+        .setMimeType(ContentService.MimeType.JSON);
+    }
+
+    const ss = SpreadsheetApp.getActiveSpreadsheet();
+    const data = JSON.parse(e.parameter.payload);
+
+    if (data.formType === 'comment') {
+      let sheet = ss.getSheetByName(SHEET_COMMENTS);
+      if (!sheet) { setup(); sheet = ss.getSheetByName(SHEET_COMMENTS); }
+      sheet.appendRow([
+        new Date().toISOString(),
+        data.firstName || '',
+        data.lastName  || '',
+        data.email     || '',
+        data.message   || '',
+      ]);
+    } else {
+      let sheet = ss.getSheetByName(SHEET_REGISTRATIONS);
+      if (!sheet) { setup(); sheet = ss.getSheetByName(SHEET_REGISTRATIONS); }
+      sheet.appendRow([
+        new Date().toISOString(),
+        data.firstName   || '',
+        data.lastName    || '',
+        data.email       || '',
+        data.institution || '',
+        data.department  || '',
+        data.role        || '',
+        data.interests   || '',
+      ]);
+      if (data.email) sendConfirmationEmail(data);
+    }
+
+    return ContentService
+      .createTextOutput(JSON.stringify({ status: 'success' }))
+      .setMimeType(ContentService.MimeType.JSON);
+
+  } catch (err) {
+    return ContentService
+      .createTextOutput(JSON.stringify({ status: 'error', message: err.message }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
 }
 
 // ── Send confirmation email to registrant ─────────────────

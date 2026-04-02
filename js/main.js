@@ -106,13 +106,8 @@
     const payload = Object.fromEntries(data.entries());
 
     try {
-      const fd = new FormData();
-      fd.append('payload', JSON.stringify(payload));
-      await fetch(GOOGLE_SCRIPT_URL, {
-        method: 'POST',
-        mode: 'no-cors',
-        body: fd,
-      });
+      const url = GOOGLE_SCRIPT_URL + '?payload=' + encodeURIComponent(JSON.stringify(payload));
+      await fetch(url, { method: 'GET', mode: 'no-cors' });
       showMessage('success', '✓ Registration received! We will be in touch shortly.');
       form.reset();
     } catch {
