@@ -9,7 +9,7 @@
   <style>
     .reg-layout {
       display: grid;
-      grid-template-columns: 1fr 380px;
+      grid-template-columns: 1fr 360px;
       gap: 4rem;
       align-items: start;
       max-width: 1000px;
@@ -130,14 +130,45 @@
       color: var(--cyan);
     }
 
+    /* Tab switcher for Registration vs Comments */
+    .tab-bar {
+      display: flex;
+      gap: 0;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      margin-bottom: 2rem;
+    }
+
+    .tab-btn {
+      flex: 1;
+      padding: 0.75rem 1rem;
+      background: transparent;
+      border: none;
+      color: var(--text-2);
+      font-size: 0.875rem;
+      font-weight: 500;
+      font-family: 'Inter', sans-serif;
+      cursor: pointer;
+      transition: background var(--transition), color var(--transition);
+      text-align: center;
+    }
+
+    .tab-btn:first-child {
+      border-right: 1px solid var(--border-light);
+    }
+
+    .tab-btn.active {
+      background: rgba(108,99,255,0.12);
+      color: var(--text);
+    }
+
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
     @media (max-width: 768px) {
-      .reg-layout {
-        grid-template-columns: 1fr;
-      }
-      .reg-sidebar {
-        position: static;
-        order: -1;
-      }
+      .reg-layout { grid-template-columns: 1fr; }
+      .reg-sidebar { position: static; order: -1; }
     }
   </style>
 </head>
@@ -152,11 +183,9 @@
         <span>April 17, 2026</span>
       </div>
     </div>
-
     <button class="nav-hamburger" id="navHamburger" aria-label="Toggle menu" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
-
     <ul class="nav-links" id="navLinks">
       <li><a href="index.html">Home</a></li>
       <li><a href="program.html">Program</a></li>
@@ -172,159 +201,174 @@
     <p>Secure your spot at the Quantum ML Workshop at Polytechnique Montréal.</p>
   </div>
 
-  <!-- Registration Form Section -->
   <section class="section">
     <div class="reg-layout">
 
-      <!-- Main Form -->
+      <!-- Main Forms -->
       <div>
-        <!-- Google Sheets Setup Note (remove after setup) -->
+
+        <!-- Setup note -->
         <div class="setup-box" id="setupNote">
           <h3>🔧 Setup Required — Connect Google Sheets</h3>
           <ol>
-            <li>Go to <strong>Google Sheets</strong> and create a new spreadsheet called <em>Workshop Registrations</em>.</li>
+            <li>Go to <strong>Google Sheets</strong> and create a spreadsheet called <em>Workshop Registrations</em>.</li>
             <li>Open <strong>Extensions → Apps Script</strong> and paste the script from <code>google-apps-script.js</code>.</li>
-            <li>Click <strong>Deploy → New deployment</strong> → choose <em>Web App</em> → set access to <em>Anyone</em>.</li>
+            <li>Click <strong>Deploy → New deployment</strong> → Web App → access: <em>Anyone</em>.</li>
             <li>Copy the Web App URL and paste it into <code>js/main.js</code> where it says <code>YOUR_GOOGLE_APPS_SCRIPT_URL_HERE</code>.</li>
-            <li>Delete or hide this box once the form is connected.</li>
+            <li>Delete this box once connected.</li>
           </ol>
         </div>
 
-        <form id="registrationForm" novalidate>
+        <!-- Tab bar -->
+        <div class="tab-bar">
+          <button class="tab-btn active" onclick="switchTab('registration', this)">Registration</button>
+          <button class="tab-btn" onclick="switchTab('comments', this)">Questions &amp; Comments</button>
+        </div>
 
-          <!-- Personal Info -->
-          <div class="form-section-title">Personal Information</div>
+        <!-- ── Registration Tab ───────────────────── -->
+        <div id="tab-registration" class="tab-panel active">
+          <form id="registrationForm" novalidate>
 
-          <div class="form-row">
+            <div class="form-section-title">Personal Information</div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="firstName">First Name <span class="required">*</span></label>
+                <input type="text" id="firstName" name="firstName" class="form-control"
+                       placeholder="Jane" required autocomplete="given-name" />
+              </div>
+              <div class="form-group">
+                <label for="lastName">Last Name <span class="required">*</span></label>
+                <input type="text" id="lastName" name="lastName" class="form-control"
+                       placeholder="Doe" required autocomplete="family-name" />
+              </div>
+            </div>
+
             <div class="form-group">
-              <label for="firstName">First Name <span class="required">*</span></label>
-              <input type="text" id="firstName" name="firstName" class="form-control"
-                     placeholder="Jane" required autocomplete="given-name" />
+              <label for="email">Email Address <span class="required">*</span></label>
+              <input type="email" id="email" name="email" class="form-control"
+                     placeholder="jane.doe@example.com" required autocomplete="email" />
             </div>
+
+            <div class="form-section-title">Affiliation</div>
+
             <div class="form-group">
-              <label for="lastName">Last Name <span class="required">*</span></label>
-              <input type="text" id="lastName" name="lastName" class="form-control"
-                     placeholder="Doe" required autocomplete="family-name" />
+              <label for="institution">Institution / Organization <span class="required">*</span></label>
+              <input type="text" id="institution" name="institution" class="form-control"
+                     placeholder="Polytechnique Montréal" required />
             </div>
-          </div>
 
-          <div class="form-group">
-            <label for="email">Email Address <span class="required">*</span></label>
-            <input type="email" id="email" name="email" class="form-control"
-                   placeholder="jane.doe@example.com" required autocomplete="email" />
-          </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="department">Department / Lab</label>
+                <input type="text" id="department" name="department" class="form-control"
+                       placeholder="Quantum Computing Lab" />
+              </div>
+              <div class="form-group">
+                <label for="role">Your Role <span class="required">*</span></label>
+                <select id="role" name="role" class="form-control" required>
+                  <option value="" disabled selected>Select…</option>
+                  <option value="PhD Student">PhD Student</option>
+                  <option value="Postdoc">Postdoc</option>
+                  <option value="Professor / Faculty">Professor / Faculty</option>
+                  <option value="Research Scientist">Research Scientist</option>
+                  <option value="Industry Professional">Industry Professional</option>
+                  <option value="Master's Student">Master's Student</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+            </div>
 
-          <!-- Affiliation -->
-          <div class="form-section-title">Affiliation</div>
+            <div class="form-section-title">Research Interests</div>
 
-          <div class="form-group">
-            <label for="institution">Institution / Organization <span class="required">*</span></label>
-            <input type="text" id="institution" name="institution" class="form-control"
-                   placeholder="Polytechnique Montréal" required />
-          </div>
-
-          <div class="form-row">
             <div class="form-group">
-              <label for="department">Department / Lab</label>
-              <input type="text" id="department" name="department" class="form-control"
-                     placeholder="Quantum Computing Lab" />
+              <label>Topics of Interest</label>
+              <div class="checkbox-group">
+                <label class="checkbox-label">
+                  <input type="checkbox" name="interests" value="Quantum Reservoir Computing" />
+                  Quantum Reservoir Computing
+                </label>
+                <label class="checkbox-label">
+                  <input type="checkbox" name="interests" value="Quantum Recurrent Networks" />
+                  Quantum Recurrent Networks
+                </label>
+                <label class="checkbox-label">
+                  <input type="checkbox" name="interests" value="Network Anomaly Detection" />
+                  Network Anomaly Detection
+                </label>
+                <label class="checkbox-label">
+                  <input type="checkbox" name="interests" value="Time-Series Forecasting" />
+                  Time-Series Forecasting
+                </label>
+                <label class="checkbox-label">
+                  <input type="checkbox" name="interests" value="AI-based Circuit Cutting" />
+                  AI-based Circuit Cutting
+                </label>
+                <label class="checkbox-label">
+                  <input type="checkbox" name="interests" value="Quantum Generative Models" />
+                  Quantum Generative Models
+                </label>
+              </div>
             </div>
+
+            <div class="form-submit">
+              <button type="submit" class="btn btn-primary">Submit Registration</button>
+              <p class="form-note">
+                In-person event at Polytechnique Montréal.<br />
+                We will confirm your registration within 2 business days.
+              </p>
+            </div>
+
+            <div id="formMessage" class="form-message"></div>
+          </form>
+        </div>
+
+        <!-- ── Comments Tab ───────────────────────── -->
+        <div id="tab-comments" class="tab-panel">
+          <form id="commentsForm" novalidate>
+
+            <div class="form-section-title">Your Details</div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="cFirstName">First Name <span class="required">*</span></label>
+                <input type="text" id="cFirstName" name="firstName" class="form-control"
+                       placeholder="Jane" required />
+              </div>
+              <div class="form-group">
+                <label for="cLastName">Last Name <span class="required">*</span></label>
+                <input type="text" id="cLastName" name="lastName" class="form-control"
+                       placeholder="Doe" required />
+              </div>
+            </div>
+
             <div class="form-group">
-              <label for="role">Your Role <span class="required">*</span></label>
-              <select id="role" name="role" class="form-control" required>
-                <option value="" disabled selected>Select…</option>
-                <option value="PhD Student">PhD Student</option>
-                <option value="Postdoc">Postdoc</option>
-                <option value="Professor / Faculty">Professor / Faculty</option>
-                <option value="Research Scientist">Research Scientist</option>
-                <option value="Industry Professional">Industry Professional</option>
-                <option value="Master's Student">Master's Student</option>
-                <option value="Other">Other</option>
-              </select>
+              <label for="cEmail">Email Address <span class="required">*</span></label>
+              <input type="email" id="cEmail" name="email" class="form-control"
+                     placeholder="jane.doe@example.com" required />
             </div>
-          </div>
 
-          <!-- Attendance Type -->
-          <div class="form-section-title">Attendance</div>
+            <div class="form-section-title">Your Message</div>
 
-          <div class="form-group">
-            <label for="attendanceType">Attendance Type <span class="required">*</span></label>
-            <select id="attendanceType" name="attendanceType" class="form-control" required>
-              <option value="" disabled selected>Select…</option>
-              <option value="In-Person">In-Person (Polytechnique Montréal)</option>
-              <option value="Online">Online</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label for="participation">Participation <span class="required">*</span></label>
-            <select id="participation" name="participation" class="form-control" required>
-              <option value="" disabled selected>Select…</option>
-              <option value="Attendee">Attendee only</option>
-              <option value="Speaker">Speaker (scheduled)</option>
-              <option value="Poster">Poster presenter</option>
-            </select>
-          </div>
-
-          <!-- Research Interests -->
-          <div class="form-section-title">Research Interests</div>
-
-          <div class="form-group">
-            <label>Topics of Interest</label>
-            <div class="checkbox-group">
-              <label class="checkbox-label">
-                <input type="checkbox" name="interests" value="Quantum Reservoir Computing" />
-                Quantum Reservoir Computing
-              </label>
-              <label class="checkbox-label">
-                <input type="checkbox" name="interests" value="Quantum Recurrent Networks" />
-                Quantum Recurrent Networks
-              </label>
-              <label class="checkbox-label">
-                <input type="checkbox" name="interests" value="Network Anomaly Detection" />
-                Network Anomaly Detection
-              </label>
-              <label class="checkbox-label">
-                <input type="checkbox" name="interests" value="Time-Series Forecasting" />
-                Time-Series Forecasting
-              </label>
-              <label class="checkbox-label">
-                <input type="checkbox" name="interests" value="AI-based Circuit Cutting" />
-                AI-based Circuit Cutting
-              </label>
-              <label class="checkbox-label">
-                <input type="checkbox" name="interests" value="Quantum Generative Models" />
-                Quantum Generative Models
-              </label>
+            <div class="form-group">
+              <label for="cMessage">Question or Comment <span class="required">*</span></label>
+              <textarea id="cMessage" name="message" class="form-control" style="min-height:150px;"
+                        placeholder="Ask a question about the workshop, logistics, presentations…" required></textarea>
             </div>
-          </div>
 
-          <!-- Additional Info -->
-          <div class="form-section-title">Additional Information</div>
+            <div class="form-submit">
+              <button type="submit" class="btn btn-primary">Send Message</button>
+              <p class="form-note">Your message and email will be saved and reviewed by the organizers.</p>
+            </div>
 
-          <div class="form-group">
-            <label for="message">Message / Questions (optional)</label>
-            <textarea id="message" name="message" class="form-control"
-                      placeholder="Any questions, dietary requirements, accessibility needs, or anything else we should know…"></textarea>
-          </div>
+            <div id="commentsMessage" class="form-message"></div>
+          </form>
+        </div>
 
-          <!-- Submit -->
-          <div class="form-submit">
-            <button type="submit" class="btn btn-primary">Submit Registration</button>
-            <p class="form-note">
-              By submitting, you agree to receive event-related communications.<br />
-              We will confirm your registration within 2 business days.
-            </p>
-          </div>
-
-          <div id="formMessage" class="form-message"></div>
-
-        </form>
       </div>
 
       <!-- Sidebar -->
       <aside class="reg-sidebar">
-
         <div class="info-card">
           <h3>Event Details</h3>
           <ul class="info-list">
@@ -341,11 +385,7 @@
             </li>
             <li>
               <span class="info-icon">🎟️</span>
-              <div><strong style="color:var(--text);">Free admission</strong><br />Registration required</div>
-            </li>
-            <li>
-              <span class="info-icon">🌐</span>
-              <div><strong style="color:var(--text);">Hybrid event</strong><br />In-person and online attendance available</div>
+              <div><strong style="color:var(--text);">Free admission</strong><br />Registration required · In-person only</div>
             </li>
           </ul>
         </div>
@@ -353,31 +393,15 @@
         <div class="info-card">
           <h3>What's Included</h3>
           <ul class="info-list">
-            <li><span class="info-icon">✅</span> Access to all sessions &amp; tracks</li>
+            <li><span class="info-icon">✅</span> Access to all presentations</li>
             <li><span class="info-icon">✅</span> Lunch &amp; coffee breaks</li>
             <li><span class="info-icon">✅</span> Networking opportunities</li>
             <li><span class="info-icon">✅</span> Workshop materials</li>
             <li><span class="info-icon">✅</span> Certificate of attendance</li>
           </ul>
         </div>
-
-        <div class="info-card">
-          <h3>Contact</h3>
-          <ul class="info-list">
-            <li>
-              <span class="info-icon">✉️</span>
-              <div>
-                Questions? Email us at<br />
-                <a href="mailto:workshop@polymtl.ca"
-                   style="color:var(--cyan); text-decoration:underline;">
-                  workshop@polymtl.ca
-                </a>
-              </div>
-            </li>
-          </ul>
-        </div>
-
       </aside>
+
     </div>
   </section>
 
@@ -397,12 +421,75 @@
 
   <script src="js/main.js"></script>
   <script>
-    // Collect checkboxes into a comma-separated value before submit
+    // Tab switcher
+    function switchTab(name, btn) {
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('tab-' + name).classList.add('active');
+      btn.classList.add('active');
+    }
+
+    // Collect checkboxes before submit
     document.getElementById('registrationForm').addEventListener('formdata', (e) => {
       const interests = [...document.querySelectorAll('input[name="interests"]:checked')]
         .map(cb => cb.value).join(', ');
       e.formData.set('interests', interests);
     });
+
+    // Comments form — reuse the same Google Apps Script URL
+    (function () {
+      const form = document.getElementById('commentsForm');
+      const msg  = document.getElementById('commentsMessage');
+      const btn  = form.querySelector('button[type="submit"]');
+
+      // Reads the same URL configured in main.js
+      // We duplicate the logic here for the second form
+      const GOOGLE_SCRIPT_URL = 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE';
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        if (GOOGLE_SCRIPT_URL === 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE') {
+          showMsg('error', '⚠️ Form not yet connected. Please set up the Google Apps Script URL.');
+          return;
+        }
+
+        const orig = btn.textContent;
+        btn.disabled = true;
+        btn.textContent = 'Sending…';
+
+        const payload = {
+          formType:  'comment',
+          firstName: form.querySelector('[name="firstName"]').value,
+          lastName:  form.querySelector('[name="lastName"]').value,
+          email:     form.querySelector('[name="email"]').value,
+          message:   form.querySelector('[name="message"]').value,
+        };
+
+        try {
+          await fetch(GOOGLE_SCRIPT_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+          });
+          showMsg('success', '✓ Message received! The organizers will be in touch.');
+          form.reset();
+        } catch {
+          showMsg('error', 'Something went wrong. Please try again.');
+        } finally {
+          btn.disabled = false;
+          btn.textContent = orig;
+        }
+      });
+
+      function showMsg(type, text) {
+        msg.className = 'form-message ' + type;
+        msg.textContent = text;
+        msg.style.display = 'block';
+        msg.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    })();
   </script>
 </body>
 </html>

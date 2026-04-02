@@ -7,64 +7,157 @@
   <meta name="description" content="Full program and schedule for the Quantum ML Workshop, April 17, 2026 at Polytechnique Montréal." />
   <link rel="stylesheet" href="css/style.css" />
   <style>
-    /* ── Sticky track header ────────────────── */
     .program-section {
       padding: 3rem 2.5rem 5rem;
     }
 
     .program-inner {
-      max-width: 1000px;
+      max-width: 720px;
       margin: 0 auto;
     }
 
-    /* ── Session detail tags ────────────────── */
-    .session-detail {
-      font-size: 0.75rem;
+    /* ── Single-track schedule ───────────────── */
+    .schedule-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .sched-row {
+      display: grid;
+      grid-template-columns: 88px 1fr;
+      gap: 1rem;
+      align-items: start;
+    }
+
+    .sched-time {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-2);
+      font-family: 'Space Grotesk', sans-serif;
+      white-space: nowrap;
+      padding-top: 1rem;
+    }
+
+    .sched-card {
+      border-radius: var(--radius-sm);
+      padding: 1rem 1.25rem;
+      border: 1px solid transparent;
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+
+    .sched-card:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+    }
+
+    /* Types */
+    .sched-card.talk {
+      background: rgba(108, 99, 255, 0.1);
+      border-color: rgba(108, 99, 255, 0.22);
+    }
+
+    .sched-card.talk-combined {
+      background: rgba(108, 99, 255, 0.1);
+      border-color: rgba(108, 99, 255, 0.22);
+    }
+
+    .sched-card.plenary {
+      background: rgba(255,255,255,0.03);
+      border-color: var(--border-light);
+    }
+
+    .sched-card.break {
+      background: rgba(255,255,255,0.02);
+      border-color: var(--border-light);
+      text-align: center;
+      padding: 0.7rem 1.25rem;
+    }
+
+    .sched-card-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--purple-light);
+      margin-bottom: 0.35rem;
+    }
+
+    .sched-card.plenary .sched-card-label {
       color: var(--text-muted);
+    }
+
+    .sched-speaker {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--cyan);
+      margin-bottom: 0.3rem;
+    }
+
+    .sched-title {
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.4;
+    }
+
+    .sched-card.break .sched-title {
+      font-size: 0.88rem;
+      color: var(--text-2);
+      font-weight: 500;
+    }
+
+    /* Combined block: two papers stacked */
+    .paper-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
       margin-top: 0.4rem;
     }
 
-    /* ── Track column headers ───────────────── */
-    .track-col-headers {
-      display: grid;
-      grid-template-columns: 90px 1fr 1fr;
-      gap: 0.75rem;
-      margin-bottom: 0.5rem;
-      padding: 0.75rem 0;
-      border-bottom: 1px solid var(--border-light);
-      position: sticky;
-      top: var(--nav-h);
-      background: var(--bg);
-      z-index: 10;
+    .paper-item {
+      background: rgba(0,0,0,0.18);
+      border-left: 3px solid var(--purple);
+      padding: 0.65rem 0.9rem;
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
     }
 
-    .track-col-header {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 0.8rem;
-      font-weight: 700;
-      letter-spacing: 0.07em;
+    .paper-item:last-child {
+      border-left-color: var(--cyan);
+    }
+
+    .paper-author {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--text-2);
       text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 0.2rem;
     }
 
-    .track-col-header .dot {
-      width: 8px; height: 8px;
-      border-radius: 2px;
+    .paper-title {
+      font-size: 0.875rem;
+      color: var(--text);
+      line-height: 1.4;
+      font-style: italic;
     }
 
-    .track-col-header.a { color: var(--purple-light); }
-    .track-col-header.a .dot { background: var(--purple); }
-    .track-col-header.b { color: var(--cyan); }
-    .track-col-header.b .dot { background: var(--cyan); }
-
-    /* ── Schedule spacing ───────────────────── */
-    .schedule-block {
-      margin-bottom: 0.5rem;
+    .online-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.68rem;
+      font-weight: 600;
+      color: #4ade80;
+      background: rgba(74, 222, 128, 0.1);
+      border: 1px solid rgba(74, 222, 128, 0.2);
+      border-radius: 999px;
+      padding: 0.15rem 0.55rem;
+      margin-left: 0.5rem;
+      vertical-align: middle;
     }
 
-    /* Group separator */
-    .schedule-group-label {
+    .group-label {
       font-size: 0.7rem;
       font-weight: 700;
       letter-spacing: 0.12em;
@@ -85,11 +178,9 @@
         <span>April 17, 2026</span>
       </div>
     </div>
-
     <button class="nav-hamburger" id="navHamburger" aria-label="Toggle menu" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
-
     <ul class="nav-links" id="navLinks">
       <li><a href="index.html">Home</a></li>
       <li><a href="program.html">Program</a></li>
@@ -105,7 +196,6 @@
     <p>Polytechnique Montréal · 10:00 AM – 4:30 PM</p>
   </div>
 
-  <!-- Program Content -->
   <section class="program-section">
     <div class="program-inner">
 
@@ -115,208 +205,152 @@
         Check this page regularly for updates.</span>
       </div>
 
-      <!-- Legend -->
-      <div class="schedule-legend">
-        <div class="legend-item">
-          <div class="legend-dot track-a"></div>
-          Track A
-        </div>
-        <div class="legend-item">
-          <div class="legend-dot track-b"></div>
-          Track B
-        </div>
-        <div class="legend-item">
-          <div class="legend-dot plenary"></div>
-          Plenary / Break
-        </div>
-      </div>
+      <div class="schedule-list">
 
-      <!-- Sticky Track Column Headers -->
-      <div class="track-col-headers">
-        <div></div>
-        <div class="track-col-header a">
-          <span class="dot"></span> Track A
-        </div>
-        <div class="track-col-header b">
-          <span class="dot"></span> Track B
-        </div>
-      </div>
+        <!-- Morning -->
+        <div class="group-label">Morning</div>
 
-      <!-- ── MORNING ──────────────────────────────── -->
-      <div class="schedule-group-label">Morning</div>
-
-      <!-- 10:00 — Networking -->
-      <div class="schedule-block">
-        <div class="schedule-row plenary">
-          <div class="schedule-time">10:00 AM</div>
-          <div class="session plenary-session">
-            <div class="session-title">Registration &amp; Networking</div>
-            <div class="session-detail">Welcome coffee · Meet fellow attendees · Informal discussions</div>
+        <!-- 10:00 Networking -->
+        <div class="sched-row">
+          <div class="sched-time">10:00 AM</div>
+          <div class="sched-card plenary">
+            <div class="sched-card-label">Opening</div>
+            <div class="sched-title">Registration &amp; Networking</div>
           </div>
         </div>
-      </div>
 
-      <!-- 10:30 — Opening + Benjamin Talk -->
-      <div class="schedule-block">
-        <div class="schedule-row">
-          <div class="schedule-time">10:30 AM</div>
-          <div class="session track-a">
-            <div class="session-track-label">Track A</div>
-            <div class="session-title">Opening Ceremony &amp; Welcome Remarks</div>
-            <div class="session-speaker">Organizers</div>
-          </div>
-          <div class="session track-b">
-            <div class="session-track-label">Track B</div>
-            <div class="session-title">Successive Data Injection for Quantum Models</div>
-            <div class="session-speaker"><strong>Benjamin</strong></div>
+        <!-- 10:30 Opening -->
+        <div class="sched-row">
+          <div class="sched-time">10:30 AM</div>
+          <div class="sched-card plenary">
+            <div class="sched-card-label">Opening</div>
+            <div class="sched-title">Opening Ceremony &amp; Welcome Remarks</div>
           </div>
         </div>
-      </div>
 
-      <!-- 11:00 — Benjamin+Wajdi // Wissal -->
-      <div class="schedule-block">
-        <div class="schedule-row">
-          <div class="schedule-time">11:00 AM</div>
-          <div class="session track-a">
-            <div class="session-track-label">Track A</div>
-            <div class="session-title">Enhanced + Successive Data Injection</div>
-            <div class="session-speaker"><strong>Benjamin &amp; Wajdi</strong></div>
-          </div>
-          <div class="session track-b">
-            <div class="session-track-label">Track B</div>
-            <div class="session-title">Gate-based Reservoir QRC</div>
-            <div class="session-speaker"><strong>Wissal</strong></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 11:30 — Wajdi // Melek -->
-      <div class="schedule-block">
-        <div class="schedule-row">
-          <div class="schedule-time">11:30 AM</div>
-          <div class="session track-a">
-            <div class="session-track-label">Track A</div>
-            <div class="session-title">Quantum Recurrent Gated Network</div>
-            <div class="session-speaker"><strong>Wajdi</strong></div>
-          </div>
-          <div class="session track-b">
-            <div class="session-track-label">Track B</div>
-            <div class="session-title">AI-based Circuit Cutting</div>
-            <div class="session-speaker"><strong>Melek</strong></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 12:00 — Lunch -->
-      <div class="schedule-block">
-        <div class="schedule-row plenary">
-          <div class="schedule-time">12:00 PM</div>
-          <div class="session break-session">
-            <div class="session-title">🍽️ Lunch &amp; Networking Break</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- ── AFTERNOON ─────────────────────────────── -->
-      <div class="schedule-group-label">Afternoon</div>
-
-      <!-- 13:00 — Alexis (plenary / same session both tracks) -->
-      <div class="schedule-block">
-        <div class="schedule-row plenary">
-          <div class="schedule-time">1:00 PM</div>
-          <div class="session track-a">
-            <div class="session-track-label">Plenary</div>
-            <div class="session-title">Latent GAN for Quantum Data Synthesis</div>
-            <div class="session-speaker"><strong>Alexis</strong></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 13:30 — Wissal // Abdullah QuaCK-TSF -->
-      <div class="schedule-block">
-        <div class="schedule-row">
-          <div class="schedule-time">1:30 PM</div>
-          <div class="session track-a">
-            <div class="session-track-label">Track A</div>
-            <div class="session-title">Gate-based Reservoir QRC</div>
-            <div class="session-speaker"><strong>Wissal</strong></div>
-          </div>
-          <div class="session track-b">
-            <div class="session-track-label">Track B</div>
-            <div class="session-title">QuaCK-TSF: Quantum Circuit Kernel for Time-Series Forecasting</div>
-            <div class="session-speaker"><strong>Abdullah</strong></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 14:00 — Abdullah QuaRK (plenary) -->
-      <div class="schedule-block">
-        <div class="schedule-row plenary">
-          <div class="schedule-time">2:00 PM</div>
-          <div class="session track-a">
-            <div class="session-track-label">Plenary</div>
-            <div class="session-title">QuaRK — Quantum Reservoir Kernel for Anomaly Detection</div>
-            <div class="session-speaker"><strong>Abdullah</strong></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 14:30 — Break -->
-      <div class="schedule-block">
-        <div class="schedule-row plenary">
-          <div class="schedule-time">2:30 PM</div>
-          <div class="session break-session">
-            <div class="session-title">☕ Coffee Break</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- ── CLOSING ─────────────────────────────── -->
-      <div class="schedule-group-label">Closing</div>
-
-      <!-- 15:00 — Abdullah QuaCK-TSF -->
-      <div class="schedule-block">
-        <div class="schedule-row plenary">
-          <div class="schedule-time">3:00 PM</div>
-          <div class="session track-b">
-            <div class="session-track-label">Track B</div>
-            <div class="session-title">QuaCK-TSF: Quantum Circuit Kernel for Time-Series Forecasting</div>
-            <div class="session-speaker"><strong>Abdullah</strong></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 15:30 — Melek online -->
-      <div class="schedule-block">
-        <div class="schedule-row plenary">
-          <div class="schedule-time">3:30 PM</div>
-          <div class="session track-b">
-            <div class="session-track-label">Track B</div>
-            <div class="session-title">AI-based Circuit Cutting</div>
-            <div class="session-speaker">
-              <strong>Melek</strong>
-              <span class="online-badge">🟢 Online</span>
+        <!-- 11:00 Wajdi — 2 papers combined -->
+        <div class="sched-row">
+          <div class="sched-time">11:00 AM</div>
+          <div class="sched-card talk-combined">
+            <div class="sched-card-label">Presentation</div>
+            <div class="sched-speaker">Wajdi Hammami</div>
+            <div class="paper-list">
+              <div class="paper-item">
+                <div class="paper-author">Benjamin Kalfon</div>
+                <div class="paper-title">Successive Data Injection in Conditional Quantum GAN Applied to Time Series Anomaly Detection</div>
+              </div>
+              <div class="paper-item">
+                <div class="paper-author">Wajdi Hammami</div>
+                <div class="paper-title">Enhancing Network Anomaly Detection with Quantum GANs and Successive Data Injection for Multivariate Time Series</div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <!-- 16:00 — Discussion + Closing -->
-      <div class="schedule-block">
-        <div class="schedule-row">
-          <div class="schedule-time">4:00 PM</div>
-          <div class="session track-a">
-            <div class="session-track-label">Track A</div>
-            <div class="session-title">Open Discussion &amp; Q&amp;A</div>
-            <div class="session-speaker">All Speakers</div>
-          </div>
-          <div class="session plenary-session">
-            <div class="session-title">Closing Remarks</div>
-            <div class="session-speaker">Organizers</div>
+        <!-- 11:30 Wajdi -->
+        <div class="sched-row">
+          <div class="sched-time">11:30 AM</div>
+          <div class="sched-card talk">
+            <div class="sched-card-label">Presentation</div>
+            <div class="sched-speaker">Wajdi Hammami</div>
+            <div class="sched-title">Quantum Gated Recurrent GAN with Gaussian Uncertainty for Network Anomaly Detection</div>
           </div>
         </div>
-      </div>
 
+        <!-- 12:00 Lunch -->
+        <div class="sched-row">
+          <div class="sched-time">12:00 PM</div>
+          <div class="sched-card break">
+            <div class="sched-title">🍽️ Lunch &amp; Networking Break</div>
+          </div>
+        </div>
+
+        <!-- Afternoon -->
+        <div class="group-label">Afternoon</div>
+
+        <!-- 13:00 Alexis -->
+        <div class="sched-row">
+          <div class="sched-time">1:00 PM</div>
+          <div class="sched-card talk">
+            <div class="sched-card-label">Presentation</div>
+            <div class="sched-speaker">Alexis Vieloszynski</div>
+            <div class="sched-title">LatentQGAN: A Hybrid QGAN with Classical Convolutional Autoencoder</div>
+          </div>
+        </div>
+
+        <!-- 13:30 Wissal -->
+        <div class="sched-row">
+          <div class="sched-time">1:30 PM</div>
+          <div class="sched-card talk">
+            <div class="sched-card-label">Presentation</div>
+            <div class="sched-speaker">Wissal Hamhoum</div>
+            <div class="sched-title">Multivariate Time Series Forecasting with Gate-Based Quantum Reservoir Computing on NISQ Hardware</div>
+          </div>
+        </div>
+
+        <!-- 14:00 Abdallah QuaRK -->
+        <div class="sched-row">
+          <div class="sched-time">2:00 PM</div>
+          <div class="sched-card talk">
+            <div class="sched-card-label">Presentation</div>
+            <div class="sched-speaker">Abdallah Aaraba</div>
+            <div class="sched-title">QuaRK: A Quantum Reservoir Kernel for Time Series Learning</div>
+          </div>
+        </div>
+
+        <!-- 14:30 Break -->
+        <div class="sched-row">
+          <div class="sched-time">2:30 PM</div>
+          <div class="sched-card break">
+            <div class="sched-title">☕ Coffee Break</div>
+          </div>
+        </div>
+
+        <!-- Closing -->
+        <div class="group-label">Closing</div>
+
+        <!-- 15:00 Abdallah QuaCK-TSF -->
+        <div class="sched-row">
+          <div class="sched-time">3:00 PM</div>
+          <div class="sched-card talk">
+            <div class="sched-card-label">Presentation</div>
+            <div class="sched-speaker">Abdallah Aaraba</div>
+            <div class="sched-title">QuaCK-TSF: Quantum-Classical Kernelized Time Series Forecasting</div>
+          </div>
+        </div>
+
+        <!-- 15:30 Melek -->
+        <div class="sched-row">
+          <div class="sched-time">3:30 PM</div>
+          <div class="sched-card talk">
+            <div class="sched-card-label">Presentation</div>
+            <div class="sched-speaker">
+              Melek Krichen
+              <span class="online-badge">🟢 Online</span>
+            </div>
+            <div class="sched-title">AI-based Circuit Cutting</div>
+          </div>
+        </div>
+
+        <!-- 16:00 Discussion -->
+        <div class="sched-row">
+          <div class="sched-time">4:00 PM</div>
+          <div class="sched-card plenary">
+            <div class="sched-card-label">Closing</div>
+            <div class="sched-title">Open Discussion &amp; Q&amp;A</div>
+          </div>
+        </div>
+
+        <!-- 16:15 Closing Remarks -->
+        <div class="sched-row">
+          <div class="sched-time">4:15 PM</div>
+          <div class="sched-card plenary">
+            <div class="sched-card-label">Closing</div>
+            <div class="sched-title">Closing Remarks</div>
+          </div>
+        </div>
+
+      </div>
     </div>
   </section>
 

@@ -26,6 +26,7 @@
  */
 
 const SHEET_REGISTRATIONS = 'Registrations';
+const SHEET_COMMENTS      = 'Comments';
 const SHEET_INVITATIONS   = 'Invitations';
 
 // ── Bootstrap: create sheets and headers on first run ──────
@@ -51,6 +52,15 @@ function setup() {
     ]);
     regSheet.getRange(1, 1, 1, 11).setFontWeight('bold').setBackground('#6c63ff').setFontColor('#ffffff');
     regSheet.setFrozenRows(1);
+  }
+
+  // Comments sheet
+  let comSheet = ss.getSheetByName(SHEET_COMMENTS);
+  if (!comSheet) {
+    comSheet = ss.insertSheet(SHEET_COMMENTS);
+    comSheet.appendRow(['Timestamp', 'First Name', 'Last Name', 'Email', 'Message']);
+    comSheet.getRange(1, 1, 1, 5).setFontWeight('bold').setBackground('#0d9488').setFontColor('#ffffff');
+    comSheet.setFrozenRows(1);
   }
 
   // Invitations sheet
@@ -89,6 +99,22 @@ function doPost(e) {
 
     // Parse incoming JSON
     const data = JSON.parse(e.postData.contents);
+
+    // Route comments to a separate sheet
+    if (data.formType === 'comment') {
+      let comSheet = ss.getSheetByName(SHEET_COMMENTS);
+      if (!comSheet) { setup(); comSheet = ss.getSheetByName(SHEET_COMMENTS); }
+      comSheet.appendRow([
+        new Date().toISOString(),
+        data.firstName || '',
+        data.lastName  || '',
+        data.email     || '',
+        data.message   || '',
+      ]);
+      return ContentService
+        .createTextOutput(JSON.stringify({ status: 'success' }))
+        .setMimeType(ContentService.MimeType.JSON);
+    }
 
     const row = [
       new Date().toISOString(),           // Timestamp
