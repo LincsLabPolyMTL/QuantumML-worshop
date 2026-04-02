@@ -453,11 +453,12 @@
         };
 
         try {
+          const fd = new FormData();
+          fd.append('payload', JSON.stringify(payload));
           await fetch(GOOGLE_SCRIPT_URL, {
             method: 'POST',
             mode: 'no-cors',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload),
+            body: fd,
           });
           showMsg('success', '✓ Message received! The organizers will be in touch.');
           form.reset();

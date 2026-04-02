@@ -94,8 +94,8 @@ function doPost(e) {
       sheet = ss.getSheetByName(SHEET_REGISTRATIONS);
     }
 
-    // Parse incoming JSON
-    const data = JSON.parse(e.postData.contents);
+    // Parse incoming JSON (sent as FormData field 'payload')
+    const data = JSON.parse(e.parameter.payload);
 
     // Route comments to a separate sheet
     if (data.formType === 'comment') {
