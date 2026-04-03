@@ -60,6 +60,7 @@
 
       /* ── PROGRAM ── */
       'prog.hero.label':'April 17, 2026',
+      'prog.hero.h1':'Workshop <span class="gradient-text">Program</span>',
       'prog.hero.title':'Workshop Program',
       'prog.hero.sub':'Polytechnique Montréal · 10:00 AM – 4:30 PM',
       'prog.notice':'The program is subject to change. Sessions, speakers, and times may be adjusted. Check this page regularly for updates.',
@@ -75,6 +76,7 @@
 
       /* ── SPEAKERS ── */
       'spk.hero.label':'Workshop Speakers',
+      'spk.hero.h1':'Meet the <span class="gradient-text">Researchers</span>',
       'spk.hero.title':'Meet the Researchers',
       'spk.hero.sub':'Six presentations on quantum ML, reservoir computing, anomaly detection, and time-series forecasting.',
       'spk.behalf':'Presenting on behalf of Benjamin Kalfon',
@@ -171,6 +173,7 @@
 
       /* ── PROGRAM ── */
       'prog.hero.label':'17 avril 2026',
+      'prog.hero.h1':'<span class="gradient-text">Programme</span> de l\'atelier',
       'prog.hero.title':'Programme de l\'atelier',
       'prog.hero.sub':'Polytechnique Montréal · 10h00 – 16h30',
       'prog.notice':'Le programme est susceptible de changer. Les sessions, conférenciers et horaires peuvent être ajustés. Consultez cette page régulièrement pour les mises à jour.',
@@ -186,6 +189,7 @@
 
       /* ── SPEAKERS ── */
       'spk.hero.label':'Conférenciers de l\'atelier',
+      'spk.hero.h1':'Rencontrer les <span class="gradient-text">Chercheurs</span>',
       'spk.hero.title':'Rencontrer les chercheurs',
       'spk.hero.sub':'Six présentations sur le ML quantique, le calcul par réservoir, la détection d\'anomalies et la prévision de séries temporelles.',
       'spk.behalf':'Présenté au nom de Benjamin Kalfon',
