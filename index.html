@@ -238,11 +238,12 @@
     </button>
 
     <ul class="nav-links" id="navLinks">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="program.html">Program</a></li>
-      <li><a href="speakers.html">Speakers</a></li>
-      <li><a href="registration.html" class="nav-cta">Register</a></li>
+      <li><a href="index.html" data-i18n="nav.home">Home</a></li>
+      <li><a href="program.html" data-i18n="nav.program">Program</a></li>
+      <li><a href="speakers.html" data-i18n="nav.speakers">Speakers</a></li>
+      <li><a href="registration.html" class="nav-cta" data-i18n="nav.register">Register</a></li>
     </ul>
+    <button class="lang-toggle" id="langToggle" aria-label="Switch language">FR</button>
   </nav>
 
   <!-- Hero -->
@@ -295,18 +296,19 @@
     <div class="section-inner">
       <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;">
         <div>
-          <span class="section-label">About the Workshop</span>
-          <h2 class="section-title">Where Quantum Computing Meets Machine Learning</h2>
-          <p style="color:var(--text-2); margin-bottom:1.25rem;">
+          <span class="section-label" data-i18n="about.label">About the Workshop</span>
+          <h2 class="section-title" data-i18n="about.title">Where Quantum Computing Meets Machine Learning</h2>
+          <p style="color:var(--text-2); margin-bottom:1.25rem;" data-i18n="about.p1">
             This one-day workshop brings together researchers and practitioners exploring the intersection
             of quantum computing and machine learning — with a focus on two high-impact application domains:
             network anomaly detection and time-series forecasting.
           </p>
-          <p style="color:var(--text-2); margin-bottom:2rem;">
-            Attendees will hear cutting-edge results on quantum reservoir computing, quantum recurrent networks,
-            gate-based models, and AI-assisted circuit optimization — all applied to real-world data challenges.
+          <p style="color:var(--text-2); margin-bottom:2rem;" data-i18n="about.p2">
+            Attendees will hear recent results on quantum reservoir computing, quantum recurrent networks,
+            gate-based models, and AI-assisted circuit optimization, with applications to time series analysis
+            and network anomaly detection.
           </p>
-          <a href="speakers.html" class="btn btn-outline">Meet the Speakers</a>
+          <a href="speakers.html" class="btn btn-outline" data-i18n="about.cta">Meet the Speakers</a>
         </div>
 
         <div class="stats-bar" style="margin:0;">
@@ -334,14 +336,14 @@
   <!-- Organized by -->
   <div style="border-top:1px solid var(--border-light); border-bottom:1px solid var(--border-light); padding: 1.75rem 2.5rem;">
     <div style="max-width:1100px; margin:0 auto; display:flex; align-items:center; gap:2rem; flex-wrap:wrap;">
-      <span style="font-size:0.72rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--text-muted); white-space:nowrap;">Organized by</span>
+      <span style="font-size:0.72rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--text-muted); white-space:nowrap;" data-i18n="org.label">Organized by</span>
       <a href="https://lincs.polymtl.ca" target="_blank" rel="noopener">
         <img src="images/Color-logo-with-background-2-scaled-210x71.png"
              alt="LINCS Lab — Polytechnique Montréal"
              style="height:40px; width:auto; opacity:0.9; transition:opacity 0.2s;"
              onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.9'" />
       </a>
-      <span style="font-size:0.82rem; color:var(--text-2);">LINCS Lab · Polytechnique Montréal &mdash; Connecting Intelligence Sustainably</span>
+      <span style="font-size:0.82rem; color:var(--text-2);" data-i18n="org.desc">LINCS Lab · Polytechnique Montréal — Connecting Intelligence Sustainably</span>
     </div>
   </div>
 
@@ -494,7 +496,7 @@
   <section class="section section-alt">
     <div class="section-inner">
       <div class="section-header">
-        <span class="section-label">Location</span>
+        <span class="section-label" data-i18n="venue.label">Location</span>
         <h2 class="section-title">Polytechnique Montréal</h2>
       </div>
 
@@ -503,36 +505,36 @@
           <div class="venue-detail-item">
             <div class="venue-detail-icon">📍</div>
             <div>
-              <h4>Address</h4>
-              <p>2900 Édouard-Montpetit Blvd<br />Montréal, QC H3T 1J4, Canada</p>
+              <h4 data-i18n="venue.address.label">Address</h4>
+              <p data-i18n-html="venue.address.val">Galerie Rolland (Room B-600.16)<br />6th floor, Pavillon Principal<br />2500 Chemin de Polytechnique<br />Montréal, QC H3T 1J4</p>
             </div>
           </div>
           <div class="venue-detail-item">
             <div class="venue-detail-icon">📅</div>
             <div>
-              <h4>Date &amp; Time</h4>
-              <p>April 17, 2026 · 10:00 AM – 4:30 PM</p>
+              <h4 data-i18n="venue.date.label">Date &amp; Time</h4>
+              <p data-i18n="venue.date.val">April 17, 2026 · 10:00 AM – 4:30 PM</p>
             </div>
           </div>
           <div class="venue-detail-item">
             <div class="venue-detail-icon">🚇</div>
             <div>
-              <h4>Transit</h4>
-              <p>Metro: Université-de-Montréal (Blue Line)<br />Bus: 51, 119, 365, 370</p>
+              <h4 data-i18n="venue.transit.label">Transit</h4>
+              <p data-i18n-html="venue.transit.val">Metro: Université-de-Montréal (Blue Line)<br />Bus: 51, 119, 365, 370</p>
             </div>
           </div>
           <div class="venue-detail-item">
             <div class="venue-detail-icon">🅿️</div>
             <div>
-              <h4>Parking</h4>
-              <p>On-campus paid parking available.</p>
+              <h4 data-i18n="venue.parking.label">Parking</h4>
+              <p data-i18n="venue.parking.val">On-campus paid parking available.</p>
             </div>
           </div>
         </div>
 
         <div class="venue-map">
           <iframe
-            src="https://www.openstreetmap.org/export/embed.html?bbox=-73.622%2C45.500%2C-73.608%2C45.508&layer=mapnik&marker=45.50464%2C-73.61458"
+            src="https://www.openstreetmap.org/export/embed.html?bbox=-73.616%2C45.501%2C-73.606%2C45.507&layer=mapnik&marker=45.50406%2C-73.61228"
             loading="lazy"
             title="Polytechnique Montréal map"
           ></iframe>

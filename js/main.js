@@ -2,6 +2,74 @@
    Quantum ML Workshop — Main JavaScript
    ============================================================ */
 
+/* ── Language toggle (EN / FR) ─────────────────────────────── */
+(function () {
+  const btn = document.getElementById('langToggle');
+  if (!btn) return;
+
+  const translations = {
+    en: {
+      'nav.home': 'Home', 'nav.program': 'Program', 'nav.speakers': 'Speakers', 'nav.register': 'Register',
+      'about.label': 'About the Workshop',
+      'about.title': 'Where Quantum Computing Meets Machine Learning',
+      'about.p1': 'This one-day workshop brings together researchers and practitioners exploring the intersection of quantum computing and machine learning — with a focus on two high-impact application domains: network anomaly detection and time-series forecasting.',
+      'about.p2': 'Attendees will hear recent results on quantum reservoir computing, quantum recurrent networks, gate-based models, and AI-assisted circuit optimization, with applications to time series analysis and network anomaly detection.',
+      'about.cta': 'Meet the Speakers',
+      'org.label': 'Organized by',
+      'org.desc': 'LINCS Lab · Polytechnique Montréal — Connecting Intelligence Sustainably',
+      'venue.label': 'Location',
+      'venue.address.label': 'Address',
+      'venue.address.val': 'Galerie Rolland (Room B-600.16)<br/>6th floor, Pavillon Principal<br/>2500 Chemin de Polytechnique<br/>Montréal, QC H3T 1J4',
+      'venue.date.label': 'Date & Time',
+      'venue.date.val': 'April 17, 2026 · 10:00 AM – 4:30 PM',
+      'venue.transit.label': 'Transit',
+      'venue.transit.val': 'Metro: Université-de-Montréal (Blue Line)<br/>Bus: 51, 119, 365, 370',
+      'venue.parking.label': 'Parking',
+      'venue.parking.val': 'On-campus paid parking available.',
+    },
+    fr: {
+      'nav.home': 'Accueil', 'nav.program': 'Programme', 'nav.speakers': 'Conférenciers', 'nav.register': "S'inscrire",
+      'about.label': "À propos de l'atelier",
+      'about.title': "Là où l'informatique quantique rencontre l'apprentissage automatique",
+      'about.p1': "Cet atelier d'une journée réunit des chercheurs et praticiens explorant l'intersection de l'informatique quantique et de l'apprentissage automatique — avec un accent sur deux domaines d'application à fort impact : la détection d'anomalies réseau et la prévision de séries temporelles.",
+      'about.p2': "Les participants entendront des résultats récents sur le calcul par réservoir quantique, les réseaux récurrents quantiques, les modèles à base de portes et l'optimisation de circuits assistée par IA, avec des applications à l'analyse de séries temporelles et à la détection d'anomalies réseau.",
+      'about.cta': 'Rencontrer les conférenciers',
+      'org.label': 'Organisé par',
+      'org.desc': 'Labo LINCS · Polytechnique Montréal — Connecter l\'intelligence durablement',
+      'venue.label': 'Lieu',
+      'venue.address.label': 'Adresse',
+      'venue.address.val': 'Galerie Rolland (Salle B-600.16)<br/>6e étage, Pavillon Principal<br/>2500 Chemin de Polytechnique<br/>Montréal, QC H3T 1J4',
+      'venue.date.label': 'Date et heure',
+      'venue.date.val': '17 avril 2026 · 10h00 – 16h30',
+      'venue.transit.label': 'Transport en commun',
+      'venue.transit.val': 'Métro : Université-de-Montréal (Ligne bleue)<br/>Bus : 51, 119, 365, 370',
+      'venue.parking.label': 'Stationnement',
+      'venue.parking.val': 'Stationnement payant disponible sur le campus.',
+    },
+  };
+
+  let lang = 'en';
+
+  function applyLang(l) {
+    const t = translations[l];
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (t[key] !== undefined) el.textContent = t[key];
+    });
+    document.querySelectorAll('[data-i18n-html]').forEach(el => {
+      const key = el.getAttribute('data-i18n-html');
+      if (t[key] !== undefined) el.innerHTML = t[key];
+    });
+    document.documentElement.lang = l;
+  }
+
+  btn.addEventListener('click', () => {
+    lang = lang === 'en' ? 'fr' : 'en';
+    btn.textContent = lang === 'en' ? 'FR' : 'EN';
+    applyLang(lang);
+  });
+})();
+
 /* ── Navigation ────────────────────────────────────────────── */
 (function () {
   const nav = document.getElementById('nav');
