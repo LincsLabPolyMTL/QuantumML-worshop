@@ -142,18 +142,19 @@
       <span></span><span></span><span></span>
     </button>
     <ul class="nav-links" id="navLinks">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="program.html">Program</a></li>
-      <li><a href="speakers.html">Speakers</a></li>
-      <li><a href="registration.html" class="nav-cta">Register</a></li>
+      <li><a href="index.html" data-i18n="nav.home">Home</a></li>
+      <li><a href="program.html" data-i18n="nav.program">Program</a></li>
+      <li><a href="speakers.html" data-i18n="nav.speakers">Speakers</a></li>
+      <li><a href="registration.html" class="nav-cta" data-i18n="nav.register">Register</a></li>
     </ul>
+    <button class="lang-toggle" aria-label="Switch language">FR</button>
   </nav>
 
   <!-- Page Hero -->
   <div class="page-hero">
-    <span class="section-label">Workshop Speakers</span>
-    <h1>Meet the <span class="gradient-text">Researchers</span></h1>
-    <p>Six presentations on quantum ML, reservoir computing, anomaly detection, and time-series forecasting.</p>
+    <span class="section-label" data-i18n="spk.hero.label">Workshop Speakers</span>
+    <h1>Meet the <span class="gradient-text" data-i18n="spk.hero.title">Researchers</span></h1>
+    <p data-i18n="spk.hero.sub">Six presentations on quantum ML, reservoir computing, anomaly detection, and time-series forecasting.</p>
   </div>
 
   <!-- Speakers Grid -->
@@ -194,13 +195,13 @@
             <div class="speaker-avatar-lg av-purple">B</div>
             <div class="speaker-header-info">
               <h3>Benjamin Kalfon</h3>
-              <p class="affil">Polytechnique Montréal</p>
+              <p class="affil">Polytechnique Montréal (alumni)</p>
             </div>
           </div>
           <div class="speaker-divider"></div>
           <div class="speaker-talks">
             <div class="speaker-talk-item">
-              <div class="talk-time">11:00 AM — presented by Wajdi</div>
+              <div class="talk-time">11:00 AM — <span data-i18n="spk.behalf">presented by Wajdi</span></div>
               <div class="talk-title">Successive Data Injection in Conditional Quantum GAN Applied to Time Series Anomaly Detection</div>
             </div>
           </div>
@@ -296,7 +297,7 @@
             <div class="speaker-talk-item">
               <div class="talk-time">3:30 PM</div>
               <div class="talk-title">AI-based Circuit Cutting</div>
-              <div class="online-badge">🟢 Presenting remotely</div>
+              <div class="online-badge">🟢 <span data-i18n="spk.remote">Remote presenter</span></div>
             </div>
           </div>
           <div class="speaker-tags-row">
@@ -312,14 +313,14 @@
   <!-- CTA -->
   <section class="section" style="background:var(--bg-2); padding: 4rem 2.5rem; text-align:center;">
     <div class="section-inner">
-      <span class="section-label">Join Us</span>
-      <h2 class="section-title" style="margin:0 auto 1rem;">Don't Miss This Workshop</h2>
-      <p style="color:var(--text-2); margin:0 auto 2rem; max-width:480px;">
+      <span class="section-label" data-i18n="spk.cta.label">Join Us</span>
+      <h2 class="section-title" style="margin:0 auto 1rem;" data-i18n="spk.cta.title">Don't Miss This Workshop</h2>
+      <p style="color:var(--text-2); margin:0 auto 2rem; max-width:480px;" data-i18n="spk.cta.desc">
         Register now to attend the Quantum ML Workshop on April 17, 2026 at Polytechnique Montréal.
       </p>
       <div style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;">
-        <a href="registration.html" class="btn btn-primary">Register Now</a>
-        <a href="program.html" class="btn btn-outline">View Program</a>
+        <a href="registration.html" class="btn btn-primary" data-i18n="spk.cta.btn1">Register Now</a>
+        <a href="program.html" class="btn btn-outline" data-i18n="spk.cta.btn2">View Program</a>
       </div>
     </div>
   </section>
@@ -329,12 +330,12 @@
     <div class="footer-inner">
       <div class="footer-logo gradient-text">Quantum ML Workshop 2026</div>
       <ul class="footer-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="program.html">Program</a></li>
-        <li><a href="speakers.html">Speakers</a></li>
-        <li><a href="registration.html">Register</a></li>
+        <li><a href="index.html" data-i18n="nav.home">Home</a></li>
+        <li><a href="program.html" data-i18n="nav.program">Program</a></li>
+        <li><a href="speakers.html" data-i18n="nav.speakers">Speakers</a></li>
+        <li><a href="registration.html" data-i18n="nav.register">Register</a></li>
       </ul>
-      <p class="footer-copy">© 2026 · Polytechnique Montréal</p>
+      <p class="footer-copy" data-i18n="footer.copy">© 2026 · Polytechnique Montréal</p>
     </div>
   </footer>
 

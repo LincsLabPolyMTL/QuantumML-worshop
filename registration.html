@@ -93,43 +93,6 @@
       cursor: pointer;
     }
 
-    /* Setup instructions box */
-    .setup-box {
-      background: rgba(0, 212, 255, 0.05);
-      border: 1px solid rgba(0, 212, 255, 0.18);
-      border-radius: var(--radius);
-      padding: 1.5rem;
-      margin-bottom: 2.5rem;
-    }
-
-    .setup-box h3 {
-      font-size: 0.95rem;
-      margin-bottom: 0.75rem;
-      color: var(--cyan);
-    }
-
-    .setup-box ol {
-      padding-left: 1.25rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-
-    .setup-box li {
-      font-size: 0.85rem;
-      color: var(--text-2);
-      line-height: 1.5;
-    }
-
-    .setup-box code {
-      font-family: monospace;
-      background: rgba(255,255,255,0.07);
-      padding: 0.15rem 0.4rem;
-      border-radius: 4px;
-      font-size: 0.82rem;
-      color: var(--cyan);
-    }
-
     /* Tab switcher for Registration vs Comments */
     .tab-bar {
       display: flex;
@@ -187,18 +150,19 @@
       <span></span><span></span><span></span>
     </button>
     <ul class="nav-links" id="navLinks">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="program.html">Program</a></li>
-      <li><a href="speakers.html">Speakers</a></li>
-      <li><a href="registration.html" class="nav-cta">Register</a></li>
+      <li><a href="index.html" data-i18n="nav.home">Home</a></li>
+      <li><a href="program.html" data-i18n="nav.program">Program</a></li>
+      <li><a href="speakers.html" data-i18n="nav.speakers">Speakers</a></li>
+      <li><a href="registration.html" class="nav-cta" data-i18n="nav.register">Register</a></li>
     </ul>
+    <button class="lang-toggle" aria-label="Switch language">FR</button>
   </nav>
 
   <!-- Page Hero -->
   <div class="page-hero">
-    <span class="section-label">April 17, 2026</span>
-    <h1><span class="gradient-text">Register</span> to Attend</h1>
-    <p>Secure your spot at the Quantum ML Workshop at Polytechnique Montréal.</p>
+    <span class="section-label" data-i18n="reg.hero.label">April 17, 2026</span>
+    <h1><span class="gradient-text" data-i18n="reg.hero.title">Register to Attend</span></h1>
+    <p data-i18n="reg.hero.sub">Secure your spot at the Quantum ML Workshop at Polytechnique Montréal.</p>
   </div>
 
   <section class="section">
@@ -209,99 +173,99 @@
 
         <!-- Tab bar -->
         <div class="tab-bar">
-          <button class="tab-btn active" onclick="switchTab('registration', this)">Registration</button>
-          <button class="tab-btn" onclick="switchTab('comments', this)">Questions &amp; Comments</button>
+          <button class="tab-btn active" onclick="switchTab('registration', this)" data-i18n="reg.tab.reg">Registration</button>
+          <button class="tab-btn" onclick="switchTab('comments', this)" data-i18n="reg.tab.comments">Questions &amp; Comments</button>
         </div>
 
         <!-- ── Registration Tab ───────────────────── -->
         <div id="tab-registration" class="tab-panel active">
           <form id="registrationForm" novalidate>
 
-            <div class="form-section-title">Personal Information</div>
+            <div class="form-section-title" data-i18n="reg.sec.personal">Personal Information</div>
 
             <div class="form-row">
               <div class="form-group">
-                <label for="firstName">First Name <span class="required">*</span></label>
+                <label for="firstName"><span data-i18n="reg.label.fname">First Name</span> <span class="required">*</span></label>
                 <input type="text" id="firstName" name="firstName" class="form-control"
                        placeholder="Jane" required autocomplete="given-name" />
               </div>
               <div class="form-group">
-                <label for="lastName">Last Name <span class="required">*</span></label>
+                <label for="lastName"><span data-i18n="reg.label.lname">Last Name</span> <span class="required">*</span></label>
                 <input type="text" id="lastName" name="lastName" class="form-control"
                        placeholder="Doe" required autocomplete="family-name" />
               </div>
             </div>
 
             <div class="form-group">
-              <label for="email">Email Address <span class="required">*</span></label>
+              <label for="email"><span data-i18n="reg.label.email">Email Address</span> <span class="required">*</span></label>
               <input type="email" id="email" name="email" class="form-control"
                      placeholder="jane.doe@example.com" required autocomplete="email" />
             </div>
 
-            <div class="form-section-title">Affiliation</div>
+            <div class="form-section-title" data-i18n="reg.sec.affil">Affiliation</div>
 
             <div class="form-group">
-              <label for="institution">Institution / Organization <span class="required">*</span></label>
+              <label for="institution"><span data-i18n="reg.label.institution">Institution / Organization</span> <span class="required">*</span></label>
               <input type="text" id="institution" name="institution" class="form-control"
                      placeholder="Polytechnique Montréal" required />
             </div>
 
             <div class="form-row">
               <div class="form-group">
-                <label for="department">Department / Lab</label>
+                <label for="department" data-i18n="reg.label.dept">Department / Lab</label>
                 <input type="text" id="department" name="department" class="form-control"
                        placeholder="Quantum Computing Lab" />
               </div>
               <div class="form-group">
-                <label for="role">Your Role <span class="required">*</span></label>
+                <label for="role"><span data-i18n="reg.label.role">Your Role</span> <span class="required">*</span></label>
                 <select id="role" name="role" class="form-control" required>
                   <option value="" disabled selected>Select…</option>
-                  <option value="PhD Student">PhD Student</option>
-                  <option value="Postdoc">Postdoc</option>
-                  <option value="Professor / Faculty">Professor / Faculty</option>
-                  <option value="Research Scientist">Research Scientist</option>
-                  <option value="Industry Professional">Industry Professional</option>
-                  <option value="Master's Student">Master's Student</option>
-                  <option value="Other">Other</option>
+                  <option value="PhD Student" data-i18n-opt="reg.role.phd">PhD Student</option>
+                  <option value="Postdoc" data-i18n-opt="reg.role.postdoc">Postdoc</option>
+                  <option value="Professor / Faculty" data-i18n-opt="reg.role.prof">Professor / Faculty</option>
+                  <option value="Research Scientist" data-i18n-opt="reg.role.scientist">Research Scientist</option>
+                  <option value="Industry Professional" data-i18n-opt="reg.role.industry">Industry Professional</option>
+                  <option value="Master's Student" data-i18n-opt="reg.role.master">Master's Student</option>
+                  <option value="Other" data-i18n-opt="reg.role.other">Other</option>
                 </select>
               </div>
             </div>
 
-            <div class="form-section-title">Research Interests</div>
+            <div class="form-section-title" data-i18n="reg.sec.interests">Research Interests</div>
 
             <div class="form-group">
-              <label>Topics of Interest</label>
+              <label data-i18n="reg.label.interests">Topics of Interest</label>
               <div class="checkbox-group">
                 <label class="checkbox-label">
                   <input type="checkbox" name="interests" value="Quantum Reservoir Computing" />
-                  Quantum Reservoir Computing
+                  <span data-i18n="reg.int.qrc">Quantum Reservoir Computing</span>
                 </label>
                 <label class="checkbox-label">
                   <input type="checkbox" name="interests" value="Quantum Recurrent Networks" />
-                  Quantum Recurrent Networks
+                  <span data-i18n="reg.int.qrn">Quantum Recurrent Networks</span>
                 </label>
                 <label class="checkbox-label">
                   <input type="checkbox" name="interests" value="Network Anomaly Detection" />
-                  Network Anomaly Detection
+                  <span data-i18n="reg.int.nad">Network Anomaly Detection</span>
                 </label>
                 <label class="checkbox-label">
                   <input type="checkbox" name="interests" value="Time-Series Forecasting" />
-                  Time-Series Forecasting
+                  <span data-i18n="reg.int.tsf">Time-Series Forecasting</span>
                 </label>
                 <label class="checkbox-label">
                   <input type="checkbox" name="interests" value="AI-based Circuit Cutting" />
-                  AI-based Circuit Cutting
+                  <span data-i18n="reg.int.acc">AI-based Circuit Cutting</span>
                 </label>
                 <label class="checkbox-label">
                   <input type="checkbox" name="interests" value="Quantum Generative Models" />
-                  Quantum Generative Models
+                  <span data-i18n="reg.int.qgm">Quantum Generative Models</span>
                 </label>
               </div>
             </div>
 
             <div class="form-submit">
-              <button type="submit" class="btn btn-primary">Submit Registration</button>
-              <p class="form-note">
+              <button type="submit" class="btn btn-primary" data-i18n="reg.btn.submit">Submit Registration</button>
+              <p class="form-note" data-i18n="reg.note">
                 In-person event at Polytechnique Montréal.<br />
                 We will confirm your registration within 2 business days.
               </p>
@@ -315,38 +279,39 @@
         <div id="tab-comments" class="tab-panel">
           <form id="commentsForm" novalidate>
 
-            <div class="form-section-title">Your Details</div>
+            <div class="form-section-title" data-i18n="reg.sec.your">Your Details</div>
 
             <div class="form-row">
               <div class="form-group">
-                <label for="cFirstName">First Name <span class="required">*</span></label>
+                <label for="cFirstName"><span data-i18n="reg.label.fname">First Name</span> <span class="required">*</span></label>
                 <input type="text" id="cFirstName" name="firstName" class="form-control"
                        placeholder="Jane" required />
               </div>
               <div class="form-group">
-                <label for="cLastName">Last Name <span class="required">*</span></label>
+                <label for="cLastName"><span data-i18n="reg.label.lname">Last Name</span> <span class="required">*</span></label>
                 <input type="text" id="cLastName" name="lastName" class="form-control"
                        placeholder="Doe" required />
               </div>
             </div>
 
             <div class="form-group">
-              <label for="cEmail">Email Address <span class="required">*</span></label>
+              <label for="cEmail"><span data-i18n="reg.label.email">Email Address</span> <span class="required">*</span></label>
               <input type="email" id="cEmail" name="email" class="form-control"
                      placeholder="jane.doe@example.com" required />
             </div>
 
-            <div class="form-section-title">Your Message</div>
+            <div class="form-section-title" data-i18n="reg.sec.message">Your Message</div>
 
             <div class="form-group">
-              <label for="cMessage">Question or Comment <span class="required">*</span></label>
+              <label for="cMessage"><span data-i18n="reg.label.question">Question or Comment</span> <span class="required">*</span></label>
               <textarea id="cMessage" name="message" class="form-control" style="min-height:150px;"
+                        data-i18n-placeholder="reg.placeholder.question"
                         placeholder="Ask a question about the workshop, logistics, presentations…" required></textarea>
             </div>
 
             <div class="form-submit">
-              <button type="submit" class="btn btn-primary">Send Message</button>
-              <p class="form-note">Your message and email will be saved and reviewed by the organizers.</p>
+              <button type="submit" class="btn btn-primary" data-i18n="reg.btn.send">Send Message</button>
+              <p class="form-note" data-i18n="reg.note.comments">Your message and email will be saved and reviewed by the organizers.</p>
             </div>
 
             <div id="commentsMessage" class="form-message"></div>
@@ -358,32 +323,35 @@
       <!-- Sidebar -->
       <aside class="reg-sidebar">
         <div class="info-card">
-          <h3>Event Details</h3>
+          <h3 data-i18n="reg.info.title">Event Details</h3>
           <ul class="info-list">
             <li>
               <span class="info-icon">📅</span>
-              <div><strong style="color:var(--text);">April 17, 2026</strong><br />10:00 AM – 4:30 PM</div>
+              <div><strong style="color:var(--text);">April 17, 2026</strong><br /><span data-i18n="reg.info.date.val">10:00 AM – 4:30 PM</span></div>
             </li>
             <li>
               <span class="info-icon">📍</span>
               <div>
                 <strong style="color:var(--text);">Polytechnique Montréal</strong><br />
-                2900 Édouard-Montpetit Blvd<br />Montréal, QC H3T 1J4
+                Galerie Rolland (Room B-600.16)<br />6th floor, Pavillon Principal
               </div>
             </li>
             <li>
               <span class="info-icon">🎟️</span>
-              <div><strong style="color:var(--text);">Free admission</strong><br />Registration required · In-person only</div>
+              <div>
+                <strong style="color:var(--text);" data-i18n="reg.info.admission">Free admission</strong><br />
+                <span data-i18n="reg.info.admission.sub">Registration required · In-person only</span>
+              </div>
             </li>
           </ul>
         </div>
 
         <div class="info-card">
-          <h3>What's Included</h3>
+          <h3 data-i18n="reg.included.title">What's Included</h3>
           <ul class="info-list">
-            <li><span class="info-icon">✅</span> Access to all presentations</li>
-            <li><span class="info-icon">✅</span> Lunch &amp; coffee breaks</li>
-            <li><span class="info-icon">✅</span> Networking opportunities</li>
+            <li><span class="info-icon">✅</span> <span data-i18n="reg.inc1">Access to all presentations</span></li>
+            <li><span class="info-icon">✅</span> <span data-i18n="reg.inc2">Lunch &amp; coffee breaks</span></li>
+            <li><span class="info-icon">✅</span> <span data-i18n="reg.inc3">Networking opportunities</span></li>
           </ul>
         </div>
       </aside>
@@ -396,12 +364,12 @@
     <div class="footer-inner">
       <div class="footer-logo gradient-text">Quantum ML Workshop 2026</div>
       <ul class="footer-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="program.html">Program</a></li>
-        <li><a href="speakers.html">Speakers</a></li>
-        <li><a href="registration.html">Register</a></li>
+        <li><a href="index.html" data-i18n="nav.home">Home</a></li>
+        <li><a href="program.html" data-i18n="nav.program">Program</a></li>
+        <li><a href="speakers.html" data-i18n="nav.speakers">Speakers</a></li>
+        <li><a href="registration.html" data-i18n="nav.register">Register</a></li>
       </ul>
-      <p class="footer-copy">© 2026 · Polytechnique Montréal</p>
+      <p class="footer-copy" data-i18n="footer.copy">© 2026 · Polytechnique Montréal</p>
     </div>
   </footer>
 
@@ -415,6 +383,22 @@
       btn.classList.add('active');
     }
 
+    // Translate select options on lang toggle
+    (function () {
+      function translateOptions() {
+        const lang = (window.getLang && window.getLang()) || 'en';
+        const t = window.T ? window.T[lang] : {};
+        document.querySelectorAll('[data-i18n-opt]').forEach(opt => {
+          const key = opt.getAttribute('data-i18n-opt');
+          if (t[key] !== undefined) opt.textContent = t[key];
+        });
+      }
+      translateOptions();
+      document.querySelectorAll('.lang-toggle').forEach(btn => {
+        btn.addEventListener('click', translateOptions);
+      });
+    })();
+
     // Collect checkboxes before submit
     document.getElementById('registrationForm').addEventListener('formdata', (e) => {
       const interests = [...document.querySelectorAll('input[name="interests"]:checked')]
@@ -422,23 +406,16 @@
       e.formData.set('interests', interests);
     });
 
-    // Comments form — reuse the same Google Apps Script URL
+    // Comments form
     (function () {
       const form = document.getElementById('commentsForm');
       const msg  = document.getElementById('commentsMessage');
       const btn  = form.querySelector('button[type="submit"]');
 
-      // Reads the same URL configured in main.js
-      // We duplicate the logic here for the second form
       const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzkj_LCxUvz7QWN0bpsocoqwWABXIHDE6Xpq261-I3pVM4Q9d8WTR2bESSs016IO0fr/exec';
 
       form.addEventListener('submit', async (e) => {
         e.preventDefault();
-
-        if (GOOGLE_SCRIPT_URL === 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE') {
-          showMsg('error', '⚠️ Form not yet connected. Please set up the Google Apps Script URL.');
-          return;
-        }
 
         const orig = btn.textContent;
         btn.disabled = true;

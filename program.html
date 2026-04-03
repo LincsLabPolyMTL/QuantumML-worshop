@@ -7,193 +7,78 @@
   <meta name="description" content="Full program and schedule for the Quantum ML Workshop, April 17, 2026 at Polytechnique Montréal." />
   <link rel="stylesheet" href="css/style.css" />
   <style>
-    .program-section {
-      padding: 3rem 2.5rem 5rem;
-    }
+    .program-section { padding: 3rem 2.5rem 5rem; }
+    .program-inner { max-width: 720px; margin: 0 auto; }
 
-    .program-inner {
-      max-width: 720px;
-      margin: 0 auto;
-    }
+    .schedule-list { display: flex; flex-direction: column; gap: 0.6rem; }
 
-    /* ── Single-track schedule ───────────────── */
-    .schedule-list {
-      display: flex;
-      flex-direction: column;
-      gap: 0.6rem;
-    }
-
-    .sched-row {
-      display: grid;
-      grid-template-columns: 88px 1fr;
-      gap: 1rem;
-      align-items: start;
-    }
+    .sched-row { display: grid; grid-template-columns: 88px 1fr; gap: 1rem; align-items: start; }
 
     .sched-time {
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: var(--text-2);
-      font-family: 'Space Grotesk', sans-serif;
-      white-space: nowrap;
-      padding-top: 1rem;
+      font-size: 0.8rem; font-weight: 600; color: var(--text-2);
+      font-family: 'Space Grotesk', sans-serif; white-space: nowrap; padding-top: 1rem;
     }
 
     .sched-card {
-      border-radius: var(--radius-sm);
-      padding: 1rem 1.25rem;
-      border: 1px solid transparent;
+      border-radius: var(--radius-sm); padding: 1rem 1.25rem; border: 1px solid transparent;
       transition: transform var(--transition), box-shadow var(--transition);
     }
+    .sched-card:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(0,0,0,0.25); }
 
-    .sched-card:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+    .sched-card.talk, .sched-card.talk-combined {
+      background: rgba(108,99,255,0.1); border-color: rgba(108,99,255,0.22);
     }
+    .sched-card.plenary { background: rgba(255,255,255,0.03); border-color: var(--border-light); }
+    .sched-card.break { background: rgba(255,255,255,0.02); border-color: var(--border-light); text-align: center; padding: 0.7rem 1.25rem; }
 
-    /* Types */
-    .sched-card.talk {
-      background: rgba(108, 99, 255, 0.1);
-      border-color: rgba(108, 99, 255, 0.22);
-    }
+    .sched-card-label { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--purple-light); margin-bottom: 0.35rem; }
+    .sched-card.plenary .sched-card-label { color: var(--text-muted); }
 
-    .sched-card.talk-combined {
-      background: rgba(108, 99, 255, 0.1);
-      border-color: rgba(108, 99, 255, 0.22);
-    }
+    .sched-speaker { font-size: 0.82rem; font-weight: 600; color: var(--cyan); margin-bottom: 0.3rem; }
+    .sched-title { font-size: 0.92rem; font-weight: 600; color: var(--text); line-height: 1.4; }
+    .sched-card.break .sched-title { font-size: 0.88rem; color: var(--text-2); font-weight: 500; }
 
-    .sched-card.plenary {
-      background: rgba(255,255,255,0.03);
-      border-color: var(--border-light);
-    }
-
-    .sched-card.break {
-      background: rgba(255,255,255,0.02);
-      border-color: var(--border-light);
-      text-align: center;
-      padding: 0.7rem 1.25rem;
-    }
-
-    .sched-card-label {
-      font-size: 0.68rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--purple-light);
-      margin-bottom: 0.35rem;
-    }
-
-    .sched-card.plenary .sched-card-label {
-      color: var(--text-muted);
-    }
-
-    .sched-speaker {
-      font-size: 0.82rem;
-      font-weight: 600;
-      color: var(--cyan);
-      margin-bottom: 0.3rem;
-    }
-
-    .sched-title {
-      font-size: 0.92rem;
-      font-weight: 600;
-      color: var(--text);
-      line-height: 1.4;
-    }
-
-    .sched-card.break .sched-title {
-      font-size: 0.88rem;
-      color: var(--text-2);
-      font-weight: 500;
-    }
-
-    /* Combined block: two papers stacked */
-    .paper-list {
-      display: flex;
-      flex-direction: column;
-      gap: 0.65rem;
-      margin-top: 0.4rem;
-    }
-
+    .paper-list { display: flex; flex-direction: column; gap: 0.65rem; margin-top: 0.4rem; }
     .paper-item {
-      background: rgba(0,0,0,0.18);
-      border-left: 3px solid var(--purple);
-      padding: 0.65rem 0.9rem;
-      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      background: rgba(0,0,0,0.18); border-left: 3px solid var(--purple);
+      padding: 0.65rem 0.9rem; border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
     }
-
-    .paper-item:last-child {
-      border-left-color: var(--cyan);
-    }
-
-    .paper-author {
-      font-size: 0.72rem;
-      font-weight: 600;
-      color: var(--text-2);
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      margin-bottom: 0.2rem;
-    }
-
-    .paper-title {
-      font-size: 0.875rem;
-      color: var(--text);
-      line-height: 1.4;
-      font-style: italic;
-    }
+    .paper-item:last-child { border-left-color: var(--cyan); }
+    .paper-author { font-size: 0.72rem; font-weight: 600; color: var(--text-2); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.2rem; }
+    .paper-title { font-size: 0.875rem; color: var(--text); line-height: 1.4; font-style: italic; }
 
     .online-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.3rem;
-      font-size: 0.68rem;
-      font-weight: 600;
-      color: #4ade80;
-      background: rgba(74, 222, 128, 0.1);
-      border: 1px solid rgba(74, 222, 128, 0.2);
-      border-radius: 999px;
-      padding: 0.15rem 0.55rem;
-      margin-left: 0.5rem;
-      vertical-align: middle;
+      display: inline-flex; align-items: center; gap: 0.3rem; font-size: 0.68rem; font-weight: 600;
+      color: #4ade80; background: rgba(74,222,128,0.1); border: 1px solid rgba(74,222,128,0.2);
+      border-radius: 999px; padding: 0.15rem 0.55rem; margin-left: 0.5rem; vertical-align: middle;
     }
 
-    .group-label {
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      padding: 1.5rem 0 0.5rem;
-    }
+    .group-label { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); padding: 1.5rem 0 0.5rem; }
   </style>
 </head>
 <body>
 
-  <!-- Navigation -->
   <nav class="nav" id="nav">
     <div class="nav-logo">
       <div class="nav-logo-icon">Q</div>
-      <div class="nav-logo-text">
-        Quantum ML Workshop
-        <span>April 17, 2026</span>
-      </div>
+      <div class="nav-logo-text">Quantum ML Workshop<span>April 17, 2026</span></div>
     </div>
     <button class="nav-hamburger" id="navHamburger" aria-label="Toggle menu" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
     <ul class="nav-links" id="navLinks">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="program.html">Program</a></li>
-      <li><a href="speakers.html">Speakers</a></li>
-      <li><a href="registration.html" class="nav-cta">Register</a></li>
+      <li><a href="index.html" data-i18n="nav.home">Home</a></li>
+      <li><a href="program.html" data-i18n="nav.program">Program</a></li>
+      <li><a href="speakers.html" data-i18n="nav.speakers">Speakers</a></li>
+      <li><a href="registration.html" class="nav-cta" data-i18n="nav.register">Register</a></li>
     </ul>
+    <button class="lang-toggle" aria-label="Switch language">FR</button>
   </nav>
 
-  <!-- Page Hero -->
   <div class="page-hero">
-    <span class="section-label">April 17, 2026</span>
-    <h1>Workshop <span class="gradient-text">Program</span></h1>
-    <p>Polytechnique Montréal · 10:00 AM – 4:30 PM</p>
+    <span class="section-label" data-i18n="prog.hero.label">April 17, 2026</span>
+    <h1>Workshop <span class="gradient-text" data-i18n="prog.hero.title">Program</span></h1>
+    <p data-i18n="prog.hero.sub">Polytechnique Montréal · 10:00 AM – 4:30 PM</p>
   </div>
 
   <section class="program-section">
@@ -201,38 +86,37 @@
 
       <div class="notice">
         <span class="notice-icon">ℹ️</span>
-        <span>The program is subject to change. Sessions, speakers, and times may be adjusted.
-        Check this page regularly for updates.</span>
+        <span data-i18n="prog.notice">The program is subject to change. Sessions, speakers, and times may be adjusted. Check this page regularly for updates.</span>
       </div>
 
       <div class="schedule-list">
 
-        <!-- Morning -->
-        <div class="group-label">Morning</div>
+        <div class="group-label" data-i18n="prog.morning">Morning</div>
 
-        <!-- 10:00 Networking -->
+        <!-- 10:00 -->
         <div class="sched-row">
           <div class="sched-time">10:00 AM</div>
           <div class="sched-card plenary">
-            <div class="sched-card-label">Opening</div>
-            <div class="sched-title">Registration &amp; Networking</div>
+            <div class="sched-card-label" data-i18n="prog.type.opening">Opening</div>
+            <div class="sched-title" data-i18n="prog.networking.title">Registration &amp; Networking</div>
           </div>
         </div>
 
-        <!-- 10:30 Opening -->
+        <!-- 10:30 -->
         <div class="sched-row">
           <div class="sched-time">10:30 AM</div>
           <div class="sched-card plenary">
-            <div class="sched-card-label">Opening</div>
-            <div class="sched-title">Opening Ceremony &amp; Welcome Remarks</div>
+            <div class="sched-card-label" data-i18n="prog.type.opening">Opening</div>
+            <div class="sched-title" data-i18n="prog.opening.title">Opening Ceremony &amp; Welcome Remarks</div>
+            <div class="sched-speaker" data-i18n="prog.opening.speaker">Organizers</div>
           </div>
         </div>
 
-        <!-- 11:00 Wajdi — 2 papers combined -->
+        <!-- 11:00 Wajdi — 2 papers -->
         <div class="sched-row">
           <div class="sched-time">11:00 AM</div>
           <div class="sched-card talk-combined">
-            <div class="sched-card-label">Presentation</div>
+            <div class="sched-card-label" data-i18n="prog.type.presentation">Presentation</div>
             <div class="sched-speaker">Wajdi Hammami</div>
             <div class="paper-list">
               <div class="paper-item">
@@ -251,7 +135,7 @@
         <div class="sched-row">
           <div class="sched-time">11:30 AM</div>
           <div class="sched-card talk">
-            <div class="sched-card-label">Presentation</div>
+            <div class="sched-card-label" data-i18n="prog.type.presentation">Presentation</div>
             <div class="sched-speaker">Wajdi Hammami</div>
             <div class="sched-title">Quantum Gated Recurrent GAN with Gaussian Uncertainty for Network Anomaly Detection</div>
           </div>
@@ -261,18 +145,17 @@
         <div class="sched-row">
           <div class="sched-time">12:00 PM</div>
           <div class="sched-card break">
-            <div class="sched-title">🍽️ Lunch &amp; Networking Break</div>
+            <div class="sched-title" data-i18n="prog.lunch">🍽️ Lunch &amp; Networking Break</div>
           </div>
         </div>
 
-        <!-- Afternoon -->
-        <div class="group-label">Afternoon</div>
+        <div class="group-label" data-i18n="prog.afternoon">Afternoon</div>
 
         <!-- 13:00 Alexis -->
         <div class="sched-row">
           <div class="sched-time">1:00 PM</div>
           <div class="sched-card talk">
-            <div class="sched-card-label">Presentation</div>
+            <div class="sched-card-label" data-i18n="prog.type.presentation">Presentation</div>
             <div class="sched-speaker">Alexis Vieloszynski</div>
             <div class="sched-title">LatentQGAN: A Hybrid QGAN with Classical Convolutional Autoencoder</div>
           </div>
@@ -282,7 +165,7 @@
         <div class="sched-row">
           <div class="sched-time">1:30 PM</div>
           <div class="sched-card talk">
-            <div class="sched-card-label">Presentation</div>
+            <div class="sched-card-label" data-i18n="prog.type.presentation">Presentation</div>
             <div class="sched-speaker">Wissal Hamhoum</div>
             <div class="sched-title">Multivariate Time Series Forecasting with Gate-Based Quantum Reservoir Computing on NISQ Hardware</div>
           </div>
@@ -292,7 +175,7 @@
         <div class="sched-row">
           <div class="sched-time">2:00 PM</div>
           <div class="sched-card talk">
-            <div class="sched-card-label">Presentation</div>
+            <div class="sched-card-label" data-i18n="prog.type.presentation">Presentation</div>
             <div class="sched-speaker">Abdallah Aaraba</div>
             <div class="sched-title">QuaRK: A Quantum Reservoir Kernel for Time Series Learning</div>
           </div>
@@ -302,18 +185,17 @@
         <div class="sched-row">
           <div class="sched-time">2:30 PM</div>
           <div class="sched-card break">
-            <div class="sched-title">☕ Coffee Break</div>
+            <div class="sched-title" data-i18n="prog.break">☕ Coffee Break</div>
           </div>
         </div>
 
-        <!-- Closing -->
-        <div class="group-label">Closing</div>
+        <div class="group-label" data-i18n="prog.closing">Closing</div>
 
         <!-- 15:00 Abdallah QuaCK-TSF -->
         <div class="sched-row">
           <div class="sched-time">3:00 PM</div>
           <div class="sched-card talk">
-            <div class="sched-card-label">Presentation</div>
+            <div class="sched-card-label" data-i18n="prog.type.presentation">Presentation</div>
             <div class="sched-speaker">Abdallah Aaraba</div>
             <div class="sched-title">QuaCK-TSF: Quantum-Classical Kernelized Time Series Forecasting</div>
           </div>
@@ -323,10 +205,10 @@
         <div class="sched-row">
           <div class="sched-time">3:30 PM</div>
           <div class="sched-card talk">
-            <div class="sched-card-label">Presentation</div>
+            <div class="sched-card-label" data-i18n="prog.type.presentation">Presentation</div>
             <div class="sched-speaker">
               Melek Krichen
-              <span class="online-badge">🟢 Remote presenter</span>
+              <span class="online-badge">🟢 <span data-i18n="spk.remote">Remote presenter</span></span>
             </div>
             <div class="sched-title">AI-based Circuit Cutting</div>
           </div>
@@ -336,17 +218,19 @@
         <div class="sched-row">
           <div class="sched-time">4:00 PM</div>
           <div class="sched-card plenary">
-            <div class="sched-card-label">Closing</div>
-            <div class="sched-title">Open Discussion &amp; Q&amp;A</div>
+            <div class="sched-card-label" data-i18n="prog.type.closing">Closing</div>
+            <div class="sched-title" data-i18n="prog.discussion.title">Open Discussion &amp; Q&amp;A</div>
+            <div class="sched-speaker" data-i18n="prog.discussion.speaker">All Speakers</div>
           </div>
         </div>
 
-        <!-- 16:15 Closing Remarks -->
+        <!-- 16:15 Closing -->
         <div class="sched-row">
           <div class="sched-time">4:15 PM</div>
           <div class="sched-card plenary">
-            <div class="sched-card-label">Closing</div>
-            <div class="sched-title">Closing Remarks</div>
+            <div class="sched-card-label" data-i18n="prog.type.closing">Closing</div>
+            <div class="sched-title" data-i18n="prog.remarks.title">Closing Remarks</div>
+            <div class="sched-speaker" data-i18n="prog.remarks.speaker">Organizers</div>
           </div>
         </div>
 
@@ -354,17 +238,16 @@
     </div>
   </section>
 
-  <!-- Footer -->
   <footer class="footer">
     <div class="footer-inner">
       <div class="footer-logo gradient-text">Quantum ML Workshop 2026</div>
       <ul class="footer-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="program.html">Program</a></li>
-        <li><a href="speakers.html">Speakers</a></li>
-        <li><a href="registration.html">Register</a></li>
+        <li><a href="index.html" data-i18n="nav.home">Home</a></li>
+        <li><a href="program.html" data-i18n="nav.program">Program</a></li>
+        <li><a href="speakers.html" data-i18n="nav.speakers">Speakers</a></li>
+        <li><a href="registration.html" data-i18n="nav.register">Register</a></li>
       </ul>
-      <p class="footer-copy">© 2026 · Polytechnique Montréal</p>
+      <p class="footer-copy" data-i18n="footer.copy">© 2026 · Polytechnique Montréal</p>
     </div>
   </footer>
 
