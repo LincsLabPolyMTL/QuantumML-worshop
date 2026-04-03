@@ -338,6 +338,30 @@
     e.preventDefault();
     if (!msg || !btn) return;
 
+    // Client-side validation
+    const firstName = form.querySelector('[name="firstName"]').value.trim();
+    const lastName  = form.querySelector('[name="lastName"]').value.trim();
+    const email     = form.querySelector('[name="email"]').value.trim();
+    const institution = form.querySelector('[name="institution"]').value.trim();
+    const role      = form.querySelector('[name="role"]').value;
+
+    if (!firstName || !lastName) {
+      showMessage('error', '⚠ Please enter your first and last name.');
+      return;
+    }
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      showMessage('error', '⚠ Please enter a valid email address.');
+      return;
+    }
+    if (!institution) {
+      showMessage('error', '⚠ Please enter your institution or organization.');
+      return;
+    }
+    if (!role) {
+      showMessage('error', '⚠ Please select your role.');
+      return;
+    }
+
     const originalText = btn.textContent;
     btn.disabled = true;
     btn.textContent = 'Submitting…';
@@ -351,7 +375,7 @@
       showMessage('success', '✓ Registration received! We will be in touch shortly.');
       form.reset();
     } catch {
-      showMessage('error', 'Something went wrong. Please try again.');
+      showMessage('error', '⚠ Something went wrong. Please try again.');
     } finally {
       btn.disabled = false;
       btn.textContent = originalText;

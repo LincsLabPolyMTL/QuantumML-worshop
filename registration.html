@@ -417,16 +417,34 @@
       form.addEventListener('submit', async (e) => {
         e.preventDefault();
 
+        const firstName = form.querySelector('[name="firstName"]').value.trim();
+        const lastName  = form.querySelector('[name="lastName"]').value.trim();
+        const email     = form.querySelector('[name="email"]').value.trim();
+        const message   = form.querySelector('[name="message"]').value.trim();
+
+        if (!firstName || !lastName) {
+          showMsg('error', '⚠ Please enter your first and last name.');
+          return;
+        }
+        if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+          showMsg('error', '⚠ Please enter a valid email address.');
+          return;
+        }
+        if (!message) {
+          showMsg('error', '⚠ Please enter your question or comment.');
+          return;
+        }
+
         const orig = btn.textContent;
         btn.disabled = true;
         btn.textContent = 'Sending…';
 
         const payload = {
           formType:  'comment',
-          firstName: form.querySelector('[name="firstName"]').value,
-          lastName:  form.querySelector('[name="lastName"]').value,
-          email:     form.querySelector('[name="email"]').value,
-          message:   form.querySelector('[name="message"]').value,
+          firstName,
+          lastName,
+          email,
+          message,
         };
 
         try {
