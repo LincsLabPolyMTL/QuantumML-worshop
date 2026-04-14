@@ -100,18 +100,24 @@
       'reg.role.phd':'PhD Student','reg.role.postdoc':'Postdoc',
       'reg.role.prof':'Professor / Faculty','reg.role.scientist':'Research Scientist',
       'reg.role.industry':'Industry Professional','reg.role.master':'Master\'s Student','reg.role.other':'Other',
+      'reg.sec.attendance':'Attendance Mode',
+      'reg.label.attendance':'How will you attend?',
+      'reg.att.inperson':'In-Person','reg.att.inperson.desc':'Galerie Rolland, Polytechnique Montréal',
+      'reg.att.online':'Online','reg.att.online.desc':'Remote participation via Zoom',
+      'reg.err.attendance':'Please select your attendance mode.',
       'reg.sec.interests':'Research Interests','reg.label.interests':'Topics of Interest',
       'reg.int.qrc':'Quantum Reservoir Computing','reg.int.qrn':'Quantum Recurrent Networks',
       'reg.int.nad':'Network Anomaly Detection','reg.int.tsf':'Time-Series Forecasting',
       'reg.int.acc':'AI-based Circuit Cutting','reg.int.qgm':'Quantum Generative Models',
       'reg.btn.submit':'Submit Registration',
-      'reg.note':'In-person event at Polytechnique Montréal. We will confirm your registration within 2 business days.',
+      'reg.success.inperson':'✓ Registration confirmed! See you on April 17 at Polytechnique Montréal.',
+      'reg.success.online':'✓ Registration confirmed! Check your inbox — the Zoom link is on its way.',
       'reg.sec.your':'Your Details','reg.label.question':'Question or Comment',
       'reg.btn.send':'Send Message',
       'reg.note.comments':'Your message and email will be saved and reviewed by the organizers.',
       'reg.info.title':'Event Details',
       'reg.info.date.val':'10:00 AM – 4:30 PM',
-      'reg.info.admission':'Free admission','reg.info.admission.sub':'Registration required · In-person only',
+      'reg.info.admission':'Free admission','reg.info.admission.sub':'Registration required · In-person & Online',
       'reg.included.title':'What\'s Included',
       'reg.inc1':'Access to all presentations','reg.inc2':'Lunch & coffee breaks','reg.inc3':'Networking opportunities',
       'reg.sec.message':'Your Message',
@@ -213,18 +219,24 @@
       'reg.role.phd':'Étudiant(e) au doctorat','reg.role.postdoc':'Postdoc',
       'reg.role.prof':'Professeur(e) / Faculté','reg.role.scientist':'Chercheur(se) scientifique',
       'reg.role.industry':'Professionnel(le) de l\'industrie','reg.role.master':'Étudiant(e) à la maîtrise','reg.role.other':'Autre',
+      'reg.sec.attendance':'Mode de participation',
+      'reg.label.attendance':'Comment participerez-vous ?',
+      'reg.att.inperson':'En présentiel','reg.att.inperson.desc':'Galerie Rolland, Polytechnique Montréal',
+      'reg.att.online':'En ligne','reg.att.online.desc':'Participation à distance via Zoom',
+      'reg.err.attendance':'Veuillez sélectionner votre mode de participation.',
       'reg.sec.interests':'Intérêts de recherche','reg.label.interests':'Sujets d\'intérêt',
       'reg.int.qrc':'Calcul par réservoir quantique','reg.int.qrn':'Réseaux récurrents quantiques',
       'reg.int.nad':'Détection d\'anomalies réseau','reg.int.tsf':'Prévision de séries temporelles',
       'reg.int.acc':'Découpe de circuits assistée par IA','reg.int.qgm':'Modèles génératifs quantiques',
       'reg.btn.submit':'Soumettre l\'inscription',
-      'reg.note':'Événement en présentiel à Polytechnique Montréal. Nous confirmerons votre inscription dans les 2 jours ouvrables.',
+      'reg.success.inperson':'✓ Inscription confirmée ! À bientôt le 17 avril à Polytechnique Montréal.',
+      'reg.success.online':'✓ Inscription confirmée ! Consultez votre boîte courriel — le lien Zoom est en route.',
       'reg.sec.your':'Vos coordonnées','reg.label.question':'Question ou commentaire',
       'reg.btn.send':'Envoyer le message',
       'reg.note.comments':'Votre message et votre courriel seront enregistrés et examinés par les organisateurs.',
       'reg.info.title':'Détails de l\'événement',
       'reg.info.date.val':'10h00 – 16h30',
-      'reg.info.admission':'Entrée gratuite','reg.info.admission.sub':'Inscription requise · En présentiel uniquement',
+      'reg.info.admission':'Entrée gratuite','reg.info.admission.sub':'Inscription requise · En présentiel & en ligne',
       'reg.included.title':'Ce qui est inclus',
       'reg.inc1':'Accès à toutes les présentations','reg.inc2':'Dîner et pauses-café','reg.inc3':'Occasions de réseautage',
       'reg.sec.message':'Votre message',
@@ -339,11 +351,16 @@
     if (!msg || !btn) return;
 
     // Client-side validation
-    const firstName = form.querySelector('[name="firstName"]').value.trim();
-    const lastName  = form.querySelector('[name="lastName"]').value.trim();
-    const email     = form.querySelector('[name="email"]').value.trim();
+    const firstName  = form.querySelector('[name="firstName"]').value.trim();
+    const lastName   = form.querySelector('[name="lastName"]').value.trim();
+    const email      = form.querySelector('[name="email"]').value.trim();
     const institution = form.querySelector('[name="institution"]').value.trim();
-    const role      = form.querySelector('[name="role"]').value;
+    const role       = form.querySelector('[name="role"]').value;
+    const attendance = form.querySelector('[name="attendance"]:checked');
+    const attendanceError = document.getElementById('attendanceError');
+
+    // Clear inline attendance error on each attempt
+    if (attendanceError) { attendanceError.style.display = 'none'; attendanceError.textContent = ''; }
 
     if (!firstName || !lastName) {
       showMessage('error', '⚠ Please enter your first and last name.');
@@ -361,6 +378,18 @@
       showMessage('error', '⚠ Please select your role.');
       return;
     }
+    if (!attendance) {
+      // Show inline error next to the radio group
+      if (attendanceError) {
+        const lang = (window.getLang && window.getLang()) || 'en';
+        const errMsg = (window.T && window.T[lang] && window.T[lang]['reg.err.attendance'])
+          || 'Please select your attendance mode.';
+        attendanceError.textContent = '⚠ ' + errMsg;
+        attendanceError.style.display = 'block';
+        document.getElementById('attendanceGroup').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+      return;
+    }
 
     const originalText = btn.textContent;
     btn.disabled = true;
@@ -368,18 +397,32 @@
 
     const data = new FormData(form);
     const payload = Object.fromEntries(data.entries());
+    // Ensure attendance is always present in payload (radio value from FormData)
+    payload.attendance = attendance.value;
 
     try {
       const url = GOOGLE_SCRIPT_URL + '?payload=' + encodeURIComponent(JSON.stringify(payload));
       await sendToSheet(url);
-      showMessage('success', '✓ Registration received! We will be in touch shortly.');
+      const lang = (window.getLang && window.getLang()) || 'en';
+      const t = window.T ? window.T[lang] : {};
+      const successKey = attendance.value === 'Online' ? 'reg.success.online' : 'reg.success.inperson';
+      showMessage('success', t[successKey] || '✓ Registration confirmed!');
       form.reset();
+      if (attendanceError) { attendanceError.style.display = 'none'; }
     } catch {
       showMessage('error', '⚠ Something went wrong. Please try again.');
     } finally {
       btn.disabled = false;
       btn.textContent = originalText;
     }
+  });
+
+  // Clear inline attendance error as soon as the user picks an option
+  form.querySelectorAll('[name="attendance"]').forEach(radio => {
+    radio.addEventListener('change', () => {
+      const el = document.getElementById('attendanceError');
+      if (el) { el.style.display = 'none'; el.textContent = ''; }
+    });
   });
 
   function sendToSheet(url) {

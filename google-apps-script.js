@@ -45,9 +45,10 @@ function setup() {
       'Institution',
       'Department',
       'Role',
+      'Attendance',
       'Research Interests',
     ]);
-    regSheet.getRange(1, 1, 1, 8).setFontWeight('bold').setBackground('#6c63ff').setFontColor('#ffffff');
+    regSheet.getRange(1, 1, 1, 9).setFontWeight('bold').setBackground('#6c63ff').setFontColor('#ffffff');
     regSheet.setFrozenRows(1);
   }
 
@@ -121,6 +122,7 @@ function doPost(e) {
       data.institution || '',
       data.department  || '',
       data.role        || '',
+      data.attendance  || '',
       data.interests   || '',
     ];
 
@@ -175,6 +177,7 @@ function doGet(e) {
         data.institution || '',
         data.department  || '',
         data.role        || '',
+        data.attendance  || '',
         data.interests   || '',
       ]);
       if (data.email) sendConfirmationEmail(data);
@@ -192,25 +195,46 @@ function doGet(e) {
 }
 
 // ── Send confirmation email to registrant ─────────────────
-function sendConfirmationEmail(data) {
-  const name = `${data.firstName || ''} ${data.lastName || ''}`.trim() || 'Participant';
+const ZOOM_LINK = 'https://polymtl-ca.zoom.us/j/85873129770?pwd=FqCyPNfbcakac12cHtWVauJgaBaGau.1';
 
-  const subject = `Registration Confirmed — Quantum ML Workshop 2026`;
+function sendConfirmationEmail(data) {
+  const name       = `${data.firstName || ''} ${data.lastName || ''}`.trim() || 'Participant';
+  const isOnline   = (data.attendance || '').toLowerCase() === 'online';
+  const subject    = `Registration Confirmed — Quantum ML Workshop 2026`;
+
+  const attendanceBlock = isOnline
+    ? `─────────────────────────────
+How to Join (Online)
+─────────────────────────────
+You registered for remote participation. Join via Zoom on April 17:
+
+  ${ZOOM_LINK}
+
+Please save this link. It will be your entry point to the live session.`
+    : `─────────────────────────────
+Venue (In-Person)
+─────────────────────────────
+Galerie Rolland — Room B-600.16
+6th floor, Pavillon Principal
+2500 Chemin de Polytechnique
+Montréal, QC H3T 1J4
+
+Metro: Université-de-Montréal (Blue Line) · Bus: 51, 119, 365, 370`;
 
   const body = `
 Dear ${name},
 
 Thank you for registering for the Quantum ML Workshop 2026!
-
-We have received your registration and will confirm your spot within 2 business days.
+Your registration is confirmed.
 
 ─────────────────────────────
 Event Details
 ─────────────────────────────
-Date:     April 17, 2026
-Time:     10:00 AM – 4:30 PM (EDT)
-Location: Polytechnique Montréal
-          2900 Édouard-Montpetit Blvd, Montréal, QC H3T 1J4
+Date:      April 17, 2026
+Time:      10:00 AM – 4:30 PM (EDT)
+Attendance: ${isOnline ? 'Online (Zoom)' : 'In-Person'}
+
+${attendanceBlock}
 
 ─────────────────────────────
 Your Registration
@@ -218,12 +242,13 @@ Your Registration
 Name:        ${name}
 Email:       ${data.email}
 Institution: ${data.institution || 'N/A'}
+Role:        ${data.role || 'N/A'}
 
 We look forward to seeing you on April 17!
 
 Best regards,
 The Quantum ML Workshop 2026 Team
-Polytechnique Montréal
+Polytechnique Montréal — LINCS Lab
   `.trim();
 
   try {

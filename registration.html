@@ -129,6 +129,36 @@
     .tab-panel { display: none; }
     .tab-panel.active { display: block; }
 
+    /* Attendance mode radio group */
+    .radio-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+
+    .radio-label {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      cursor: pointer;
+      font-size: 0.875rem;
+      color: var(--text-2);
+    }
+
+    .radio-label input[type="radio"] {
+      width: 17px; height: 17px;
+      accent-color: var(--purple);
+      margin-top: 0.1rem;
+      flex-shrink: 0;
+      cursor: pointer;
+    }
+
+    .radio-label .radio-desc {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-top: 0.15rem;
+    }
+
     @media (max-width: 768px) {
       .reg-layout { grid-template-columns: 1fr; }
       .reg-sidebar { position: static; order: -1; }
@@ -231,6 +261,29 @@
               </div>
             </div>
 
+            <div class="form-section-title" data-i18n="reg.sec.attendance">Attendance Mode</div>
+
+            <div class="form-group">
+              <label data-i18n="reg.label.attendance">How will you attend?</label>
+              <div class="radio-group" id="attendanceGroup">
+                <label class="radio-label">
+                  <input type="radio" name="attendance" value="In-Person" required />
+                  <div>
+                    <span data-i18n="reg.att.inperson">In-Person</span>
+                    <div class="radio-desc" data-i18n="reg.att.inperson.desc">Galerie Rolland, Polytechnique Montréal</div>
+                  </div>
+                </label>
+                <label class="radio-label">
+                  <input type="radio" name="attendance" value="Online" />
+                  <div>
+                    <span data-i18n="reg.att.online">Online</span>
+                    <div class="radio-desc" data-i18n="reg.att.online.desc">Remote participation via Zoom</div>
+                  </div>
+                </label>
+              </div>
+              <div id="attendanceError" style="display:none; font-size:0.82rem; color:#f87171; margin-top:0.5rem;"></div>
+            </div>
+
             <div class="form-section-title" data-i18n="reg.sec.interests">Research Interests</div>
 
             <div class="form-group">
@@ -265,10 +318,6 @@
 
             <div class="form-submit">
               <button type="submit" class="btn btn-primary" data-i18n="reg.btn.submit">Submit Registration</button>
-              <p class="form-note" data-i18n="reg.note">
-                In-person event at Polytechnique Montréal.<br />
-                We will confirm your registration within 2 business days.
-              </p>
             </div>
 
             <div id="formMessage" class="form-message"></div>
@@ -340,7 +389,7 @@
               <span class="info-icon">🎟️</span>
               <div>
                 <strong style="color:var(--text);" data-i18n="reg.info.admission">Free admission</strong><br />
-                <span data-i18n="reg.info.admission.sub">Registration required · In-person only</span>
+                <span data-i18n="reg.info.admission.sub">Registration required · In-person &amp; Online</span>
               </div>
             </li>
           </ul>
